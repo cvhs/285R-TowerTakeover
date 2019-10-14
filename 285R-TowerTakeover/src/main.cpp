@@ -21,9 +21,9 @@ okapi::ControllerButton Tray = okapi::ControllerDigital::L2;
 okapi::ControllerButton Up = okapi::ControllerDigital::R1;
 okapi::ControllerButton Down = okapi::ControllerDigital::L1;
 
-okapi::MotorGroup rollers({-12, 14});
-okapi::Motor tilt(6);
-okapi::Motor arm(13);
+okapi::MotorGroup rollers = MotorGroup({-12, 14});
+okapi::Motor tilt = Motor(6);
+okapi::Motor arm = Motor(13);
 
 okapi::Controller controller;
 
