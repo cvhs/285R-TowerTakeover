@@ -1,4 +1,4 @@
-#include "main.h"
+#include "devices.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -74,8 +74,12 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 
-auto chassis = okapi::ChassisControllerBuilder().withMotors({-1, -3}, {2, 4}).withOdometry(okapi::StateMode::CARTESIAN, 0_mm, 0_deg, 0.0001_mps).build();
-auto model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
+//* @param  iscales {straight scale, turn scale} or
+//* {straight scale, turn scale, length to middle wheel in meters, middle scale}
+
+ChassisScales scales{{4.125_in, 10_in}, imev5GreenTPR};
+std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuilder().withMotors({-1, -3}, {2, 4}).withGearset(okapi::AbstractMotor::gearset::green).withDimensions(scales).withOdometry(okapi::StateMode::CARTESIAN, 0_mm, 0_deg, 0.0001_mps).build();
+std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 okapi::MotorGroup rollers({-12, 14});
 okapi::Motor tilt(6);
@@ -87,7 +91,6 @@ bool toggle = false;
 
 void opcontrol()
 {
-
 	model->tank(controller.getAnalog(okapi::ControllerAnalog::leftY),
 							controller.getAnalog(okapi::ControllerAnalog::rightY));
 	/*pros::Controller master(pros::E_CONTROLLER_MASTER);
