@@ -19,13 +19,13 @@ okapi::ControllerButton downButton = okapi::ControllerDigital::L1;
 
 okapi::MotorGroup rollers = MotorGroup({ -12, 14 });
 okapi::Motor tilt = Motor(6);
-okapi::Motor arm = Motor(-13);
+okapi::Motor arm = Motor(13,false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 
 okapi::Controller controller;
 
 bool toggle = false;
 
-trayStates trayState = off;
+trayStates trayState = down;
 
 void initialize() {}
 
@@ -65,31 +65,10 @@ auto model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel())
 		else
 			arm.moveVoltage(0);
 
-		// if(controller.getDigital(okapi::ControllerDigital::X))
-		if(trayButton.isPressed())
-			toggle = !toggle;
-
-		if(toggle)
-			trayState = up;
-		else
-			trayState = off;
-
-		switch(trayState)
-		{
-			case off:
-			tilt.moveVoltage(0);
-			break;
-
-			case up:
-			// tilt.moveVoltage(12000);
+		if(trayButton.changedToPressed())
 			tilt.moveAbsolute(1234, 100);
-			break;
-
-			case down:
-			// tilt.moveVoltage(-12000);
-			tilt.moveAbsolute(0, 100);
-			break;
-		}
+		else
+			tilt.moveVoltage(0);
 	}
 
 }
