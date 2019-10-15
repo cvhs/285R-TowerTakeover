@@ -18,6 +18,7 @@ okapi::Controller controller;
 
 bool toggle = false;
 
+trayStates trayState = off;
 
 void initialize() {}
 
@@ -32,10 +33,32 @@ void opcontrol()
 	model->tank(controller.getAnalog(okapi::ControllerAnalog::leftY),
 							controller.getAnalog(okapi::ControllerAnalog::rightY));
 
-	if(Intake.isPressed())
+	if(intakeButton.isPressed())
 		rollers.moveVoltage(12000);
 	else
 		rollers.moveVoltage(0);
 
-	
+	if(downButton.isPressed())
+		trayState = up;
+	else if(trayButton.isPressed())
+		trayState = down;
+	else
+		trayState = off;
+
+	switch(trayState)
+	{
+		case off:
+		tilt.moveVoltage(0);
+		break;
+
+		case up:
+		tilt.moveVoltage(12000);
+		break;
+
+		case down:
+		tilt.moveVoltage(-12000);
+		break;
+	}
+
+
 }
