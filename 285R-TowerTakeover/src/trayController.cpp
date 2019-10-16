@@ -1,6 +1,7 @@
 #include "trayController.hpp"
 
-TrayController::TrayController(Motor* iangler, double ifinnese) : angler(iangler), finnese(ifinnese), task(taskFnc, this) {}
+TrayController::TrayController(Motor* iangler, double ifinnese) :
+angler(iangler), finnese(ifinnese), task(taskFnc, this, "Tray Controller") {}
 
 void TrayController::setState(trayStates state) {trayState = state;}
 
@@ -16,13 +17,13 @@ void TrayController::disable()
 
 void TrayController::enable() {disabled = false;}
 
-
 void TrayController::run()
 {
-  angler->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
-
+  angler->setGearing(okapi::AbstractMotor::gearset::red);
   while(true)
   {
+    // angler->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+    
     if(!disabled)
     {
       switch(trayState)
@@ -32,14 +33,17 @@ void TrayController::run()
         break;
 
         case up:
-        angler->moveVelocity(10000);
-        pros::delay(finnese);
+        angler->moveRelative(2800, 60);
+        pros::delay(2000);
+        pros::delay(1000);
+        angler->moveRelative(-2800, 50);
+        pros::delay(1500);
+        trayToggle = false;
         break;
 
         case down:
-        angler->moveVelocity(-10000);
-        pros::delay(50);
-        trayState = off;
+        // angler->moveVoltage(-10000);
+        angler->moveVelocity(-80);
         break;
       }
     }
