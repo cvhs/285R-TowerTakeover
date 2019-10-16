@@ -39,6 +39,7 @@ void TrayController::run()
         case down:
         angler->moveVelocity(-10000);
         pros::delay(50);
+        trayState = off;
         break;
       }
     }

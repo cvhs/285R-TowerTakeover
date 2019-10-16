@@ -39,6 +39,11 @@ void opcontrol()
 		model->tank(controller.getAnalog(okapi::ControllerAnalog::rightY),
 								controller.getAnalog(okapi::ControllerAnalog::leftY));
 
+    if(trayButton.isPressed())
+			tray.setState(TrayController::trayStates::up);
+		else
+			tray.setState(TrayController::trayStates::down);
+
 		if(intakeButton.isPressed())
 			rollers.moveVoltage(12000);
 		else
