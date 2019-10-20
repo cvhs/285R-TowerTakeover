@@ -11,7 +11,9 @@ public:
   {
     off,
     up,
-    down
+    down,
+    armup,
+    armdown
   };
 
   Motor* angler = nullptr;
@@ -23,7 +25,7 @@ public:
   trayStates trayState = off;
   bool disabled = false;
 
-  TrayController(Motor*, double);
+  TrayController(int, double);
 
   void setState(trayStates);
   trayStates getState();

@@ -1,7 +1,8 @@
 #include "trayController.hpp"
 
-TrayController::TrayController(Motor* iangler, double ifinnese) :
-angler(iangler), finnese(ifinnese), task(taskFnc, this, "Tray Controller") {}
+TrayController::TrayController(int iangler, double ifinnese) :
+angler(new okapi::Motor(iangler)), finnese(ifinnese), task(taskFnc, this, "Tray Controller") {
+}
 
 void TrayController::setState(trayStates state) {trayState = state;}
 
@@ -9,8 +10,8 @@ TrayController::trayStates TrayController::getState() {return trayState;}
 
 void TrayController::disable()
 {
-  if(!disabled)
-    angler->moveVelocity(0);
+  // if(!disabled)
+  //   angler->moveVelocity(0);
 
   disabled = true;
 }
@@ -29,21 +30,44 @@ void TrayController::run()
       switch(trayState)
       {
         case off:
-        angler->moveVoltage(0);
+        angler->moveVelocity(0);
         break;
 
         case up:
-        angler->moveRelative(2800, 60);
+        std::cout << "trayState: up" << std::endl;
+        angler->moveAbsolute(3000, 60);
         pros::delay(2000);
-        pros::delay(1000);
-        angler->moveRelative(-2800, 50);
-        pros::delay(1500);
-        trayToggle = false;
+        trayState = trayStates::off;
+        std::cout << "trayState: off" << std::endl;
+        trayToggle = true;
         break;
 
         case down:
-        // angler->moveVoltage(-10000);
-        angler->moveVelocity(-80);
+        std::cout << "trayState: down" << std::endl;
+        angler->moveAbsolute(0, 80);
+        pros::delay(2000);
+        trayState = trayStates::off;
+        std::cout << "trayState: off" << std::endl;
+        trayToggle = false;
+        break;
+
+        case armup:
+        std::cout << "trayState: armup" << std::endl;
+        pros::delay(300);
+        angler->moveAbsolute(1300, 60);
+        pros::delay(2000);
+        trayState = trayStates::off;
+        std::cout << "trayState: off" << std::endl;
+        trayToggle = true;
+        break;
+
+        case armdown:
+        std::cout << "trayState: armdown" << std::endl;
+        angler->moveAbsolute(0, 60);
+        pros::delay(1000);
+        trayState = trayStates::off;
+        std::cout << "trayState: off" << std::endl;
+        trayToggle = false;
         break;
       }
     }
