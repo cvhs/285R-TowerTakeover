@@ -114,7 +114,7 @@ void opcontrol()
 		{
 			tray.setState(TrayController::trayStates::armup);	
 			lift.moveAbsolute(640, 80);
-			pros::delay(2000);
+			pros::delay(800);
 			tray.setState(TrayController::trayStates::armdown);
 			lift.moveAbsolute(0, 60);
 			// if(armToggle)
@@ -140,9 +140,9 @@ void opcontrol()
 			rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
 
 		if(intakeButton.isPressed())
-			rollers.moveVoltage(12000);
+			rollers.moveVelocity(160);
 		else if(outtakeButton.isPressed())
-			rollers.moveVelocity(-12000*0.5);
+			rollers.moveVelocity(-90);
 		else
 			rollers.moveVelocity(0);
 
