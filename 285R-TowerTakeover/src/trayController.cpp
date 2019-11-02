@@ -24,7 +24,7 @@ void TrayController::run()
   while(true)
   {
     // angler->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
-    
+
     if(!disabled)
     {
       switch(trayState)
@@ -37,7 +37,7 @@ void TrayController::run()
         std::cout << "trayState: up" << std::endl;
         angler->moveAbsolute(2800, 60);
         pros::delay(800);
-        angler->moveAbsolute(3000, 50);
+        angler->moveAbsolute(3000, 45);
         pros::delay(1200);
         trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;
