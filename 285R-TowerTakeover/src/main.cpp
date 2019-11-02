@@ -5,7 +5,8 @@ bool onFire {false};
 okapi::ControllerButton intakeButton = okapi::ControllerDigital::R2;
 okapi::ControllerButton trayButton = okapi::ControllerDigital::L1;
 okapi::ControllerButton outtakeButton = okapi::ControllerDigital::R1;
-okapi::ControllerButton liftButton = okapi::ControllerDigital::L2;
+okapi::ControllerButton liftUpButton = okapi::ControllerDigital::up;
+okapi::ControllerButton liftDownButton = okapi::ControllerDigital::down;
 okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
 okapi::MotorGroup rollers = MotorGroup({ -12, 14 });
@@ -29,7 +30,7 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() 
+void autonomous()
 {
 	std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
 										.withMotors({ -1, -3 }, { 2, 4 })
@@ -42,7 +43,7 @@ void autonomous()
 	// auto profile = okapi::AsyncMotionProfileControllerBuilder().withOutput(model, scales, okapi::AbstractMotor::GearsetRatioPair(okapi::AbstractMotor::gearset::green));
 
 
-	tray.setState(TrayController::trayStates::armup);	
+	tray.setState(TrayController::trayStates::armup);
 	lift.moveAbsolute(640, 80);
 	pros::delay(2000);
 	tray.setState(TrayController::trayStates::armdown);
@@ -88,11 +89,12 @@ void opcontrol()
 	std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 
-	
+
 	// arm.arm->tarePosition();
 
 	while(1)
 	{
+		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
 		if(driverDan.changedToPressed())
 			danIsDriving = !danIsDriving;
 		if(danIsDriving == true)
@@ -101,22 +103,22 @@ void opcontrol()
 		else
 			model->tank(controller.getAnalog(okapi::ControllerAnalog::rightY),
 						controller.getAnalog(okapi::ControllerAnalog::leftY));
-		
+
 
 		if(trayButton.changedToPressed())
 		{
 			if(trayToggle)
 				tray.setState(TrayController::trayStates::down);
 			else
-				tray.setState(TrayController::trayStates::up);	
+				tray.setState(TrayController::trayStates::up);
 		}
-		else if(liftButton.changedToPressed())
+		else if(liftUpButton.isPressed())
 		{
-			tray.setState(TrayController::trayStates::armup);	
-			lift.moveAbsolute(640, 80);
-			pros::delay(800);
-			tray.setState(TrayController::trayStates::armdown);
-			lift.moveAbsolute(0, 60);
+			tray.setState(TrayController::trayStates::armup);
+			lift.moveVelocity(100);
+			// pros::delay(800);
+			// tray.setState(TrayController::trayStates::armdown);
+			// lift.moveAbsolute(0, 60);
 			// if(armToggle)
 			// {
 			// 	tray.setState(TrayController::trayStates::armdown);
@@ -124,9 +126,19 @@ void opcontrol()
 			// }
 			// else
 			// {
-			// 	tray.setState(TrayController::trayStates::armup);	
+			// 	tray.setState(TrayController::trayStates::armup);
 			// 	arm.setState(ArmController::armStates::up);
 			// }
+		}
+		else if(liftDownButton.isPressed())
+		{
+			lift.moveVelocity(-60);
+			if(lift.getPosition() <= 250){
+				tray.setState(TrayController::trayStates::armdown);
+			}
+		}
+		else {
+			lift.moveVelocity(0);
 		}
 
 		// if(arm.getState() == ArmController::armStates::off)
