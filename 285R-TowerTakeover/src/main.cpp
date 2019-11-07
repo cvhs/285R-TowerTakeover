@@ -43,39 +43,43 @@ void autonomous()
 	// auto profile = okapi::AsyncMotionProfileControllerBuilder().withOutput(model, scales, okapi::AbstractMotor::GearsetRatioPair(okapi::AbstractMotor::gearset::green));
 
 
-	tray.setState(TrayController::trayStates::armup);
-	lift.moveAbsolute(640, 80);
-	pros::delay(2000);
-	tray.setState(TrayController::trayStates::armdown);
-	lift.moveAbsolute(0, 60);
+	// tray.setState(TrayController::trayStates::armup);
+	// lift.moveAbsolute(640, 80);
+	// pros::delay(2000);
+	// tray.setState(TrayController::trayStates::armdown);
+	// lift.moveAbsolute(0, 60);
+	// pros::delay(1000);
+
+	chassis->moveDistance(1_ft);
 	pros::delay(1000);
+	chassis->moveDistance(-1_ft);
 
 
-	if(onFire)
-	{
-		rollers.moveVelocity(80);
-		chassis->setState({0.5_ft, 9.75_ft, 0_deg});
-		chassis->driveToPoint({4.5_ft, 9.75_ft});
-		pros::delay(250);
-		rollers.moveVelocity(0);
-		// chassis->driveToPoint({1.8_ft, 9.75_ft}, true);
-		// chassis->waitUntilSettled();
-		// chassis->turnToAngle(235_deg);
-		// tray.setState(TrayController::trayStates::up);
-	}
-	else
-	{
-		rollers.moveVelocity(80);
-		chassis->setState({11.5_ft, 9.75_ft, 180_deg});
-		chassis->driveToPoint({7.5_ft, 9.75_ft});
-		pros::delay(300);
-		rollers.moveVelocity(0);
-		chassis->driveToPoint({11_ft, 7.2_ft}, false, 40_cm);
-		chassis->waitUntilSettled();
-		tray.setState(TrayController::trayStates::up);
-		pros::delay(500);
-		chassis->moveDistance(-1_ft);
-	}
+	// if(onFire)
+	// {
+	// 	rollers.moveVelocity(80);
+	// 	chassis->setState({0.5_ft, 9.75_ft, 0_deg});
+	// 	chassis->driveToPoint({4.5_ft, 9.75_ft});
+	// 	pros::delay(250);
+	// 	rollers.moveVelocity(0);
+	// 	// chassis->driveToPoint({1.8_ft, 9.75_ft}, true);
+	// 	// chassis->waitUntilSettled();
+	// 	// chassis->turnToAngle(235_deg);
+	// 	// tray.setState(TrayController::trayStates::up);
+	// }
+	// else
+	// {
+	// 	rollers.moveVelocity(80);
+	// 	chassis->setState({11.5_ft, 9.75_ft, 180_deg});
+	// 	chassis->driveToPoint({7.5_ft, 9.75_ft});
+	// 	pros::delay(300);
+	// 	rollers.moveVelocity(0);
+	// 	chassis->driveToPoint({11_ft, 7.2_ft}, false, 40_cm);
+	// 	chassis->waitUntilSettled();
+	// 	tray.setState(TrayController::trayStates::up);
+	// 	pros::delay(500);
+	// 	chassis->moveDistance(-1_ft);
+	// }
 }
 
 void opcontrol()
@@ -154,7 +158,7 @@ void opcontrol()
 		if(intakeButton.isPressed())
 			rollers.moveVelocity(160);
 		else if(outtakeButton.isPressed())
-			rollers.moveVelocity(-90);
+			rollers.moveVelocity(-120);
 		else
 			rollers.moveVelocity(0);
 

@@ -23,7 +23,7 @@ void TrayController::run()
   angler->setGearing(okapi::AbstractMotor::gearset::red);
   while(true)
   {
-    // angler->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+    angler->setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
 
     if(!disabled)
     {
@@ -35,10 +35,10 @@ void TrayController::run()
 
         case up:
         std::cout << "trayState: up" << std::endl;
-        angler->moveAbsolute(2800, 60);
-        pros::delay(800);
-        angler->moveAbsolute(3000, 45);
-        pros::delay(1200);
+        angler->moveAbsolute(2900, 60);
+        pros::delay(1500);
+        angler->moveAbsolute(3100, 50);
+        pros::delay(1500);
         trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;
         trayToggle = true;
