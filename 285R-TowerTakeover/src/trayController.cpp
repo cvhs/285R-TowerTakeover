@@ -56,7 +56,7 @@ void TrayController::run()
         case armup:
         std::cout << "trayState: armup" << std::endl;
         pros::delay(300);
-        angler->moveAbsolute(1300, 60);
+        angler->moveAbsolute(1350, 60);
         pros::delay(2000);
         trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;

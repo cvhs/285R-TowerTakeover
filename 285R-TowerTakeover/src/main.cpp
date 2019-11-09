@@ -136,7 +136,7 @@ void opcontrol()
 			// 	arm.setState(ArmController::armStates::up);
 			// }
 		}
-		else if(liftDownButton.isPressed())
+		else if(liftDownButton.isPressed() && lift.getPosition() >= 0)
 		{
 			lift.moveVelocity(-80);
 			if(lift.getPosition() <= 280){
