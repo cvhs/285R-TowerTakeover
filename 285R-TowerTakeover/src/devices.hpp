@@ -1,6 +1,5 @@
 #include "main.h"
 #include "trayController.hpp"
-#include "armController.hpp"
 
 extern ChassisScales scales;
 // std::shared_ptr<okapi::OdomChassisController> chassis;
@@ -8,4 +7,3 @@ extern ChassisScales scales;
 
 extern okapi::MotorGroup rollers;
 extern TrayController tray;
-extern ArmController arm;
