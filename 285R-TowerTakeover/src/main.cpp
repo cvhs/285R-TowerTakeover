@@ -1,4 +1,5 @@
 #include "devices/devices.hpp"
+#include "comp/autonFunctions.hpp"
 
 bool onFire {true};
 
@@ -20,6 +21,13 @@ okapi::ChassisScales scales
 };
 okapi::Controller controller;
 
+std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
+										.withMotors({ -1, -3 }, { 2, 4 })
+										.withGearset(okapi::AbstractMotor::gearset::green)
+										.withDimensions(scales)
+										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
+										.buildOdometry();
+
 bool trayToggle = false;
 bool danIsDriving = false;
 
@@ -31,65 +39,24 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
-										.withMotors({ -1, -3 }, { 2, 4 })
-										.withGearset(okapi::AbstractMotor::gearset::green)
-										.withDimensions(scales)
-										.withMaxVelocity(60)
-										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
-										.buildOdometry();
-	std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
-	// auto profile = okapi::AsyncMotionProfileControllerBuilder().withOutput(model, scales, okapi::AbstractMotor::GearsetRatioPair(okapi::AbstractMotor::gearset::green));
-
-
 	if(onFire)
 	{
-		rollers.moveVelocity(160);
-		chassis->setState({0.5_ft, 9.75_ft, 0_deg});
-		chassis->driveToPoint({4.5_ft, 9.75_ft});
-		pros::delay(250);
-		rollers.moveVelocity(0);
-		chassis->driveToPoint({3.75_ft, 9.75_ft}, true);
-		chassis->driveToPoint({1.5_ft, 9.0_ft});
-		
-		rollers.moveRelative(-850, 100);
-		tray.setState(TrayController::trayStates::up);
-		while(tray.getState() == TrayController::trayStates::up){}
-		tray.setState(TrayController::trayStates::down);
-		rollers.moveVelocity(-100);
-		pros::delay(200);
-		chassis->moveDistance(-1_ft);
-		rollers.moveVelocity(0);
+		red5Cubes();
 	}
 	else
 	{
-		rollers.moveVelocity(160);
-		chassis->setState({11.5_ft, 9.75_ft, 180_deg});
-		chassis->driveToPoint({7.5_ft, 9.75_ft});
-		pros::delay(250);
-		rollers.moveVelocity(0);
-		chassis->driveToPoint({8.25_ft, 9.75_ft}, true);
-		chassis->driveToPoint({10_ft, 8.15_ft}, false, 0_in);
-
-		rollers.moveRelative(-850, 100);
-		tray.setState(TrayController::trayStates::up);
-		while(tray.getState() == TrayController::trayStates::up){}
-		tray.setState(TrayController::trayStates::down);
-		rollers.moveVelocity(-100);
-		pros::delay(200);
-		chassis->moveDistance(-1_ft);
-		rollers.moveVelocity(0);
+		blue5Cubes();
 	}
 }
 
 void opcontrol()
 {
-	std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
-										.withMotors({ -1, -3 }, { 2, 4 })
-										.withGearset(okapi::AbstractMotor::gearset::green)
-										.withDimensions(scales)
-										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.0001_mps)
-										.buildOdometry();
+	// std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
+	// 									.withMotors({ -1, -3 }, { 2, 4 })
+	// 									.withGearset(okapi::AbstractMotor::gearset::green)
+	// 									.withDimensions(scales)
+	// 									.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.0001_mps)
+	// 									.buildOdometry();
 	std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 
