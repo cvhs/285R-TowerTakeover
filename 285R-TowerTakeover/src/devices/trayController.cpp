@@ -1,7 +1,7 @@
 #include "trayController.hpp"
 
-TrayController::TrayController(int iangler, double ifinnese) :
-angler(new okapi::Motor(iangler)), finnese(ifinnese), task(taskFnc, this, "Tray Controller") {
+TrayController::TrayController(int iangler) :
+angler(new okapi::Motor(iangler)), task(taskFnc, this, "Tray Controller") {
 }
 
 void TrayController::setState(trayStates state) {trayState = state;}

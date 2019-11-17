@@ -17,7 +17,6 @@ public:
   };
 
   Motor* angler = nullptr;
-  double finnese;
 
   // pros::Task task(pros::task_fn_t, void*);
   pros::Task task;
@@ -25,7 +24,7 @@ public:
   trayStates trayState = off;
   bool disabled = false;
 
-  TrayController(int, double);
+  TrayController(int);
 
   void setState(trayStates);
   trayStates getState();
