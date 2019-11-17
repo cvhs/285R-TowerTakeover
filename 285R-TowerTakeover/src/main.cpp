@@ -1,5 +1,6 @@
 #include "devices/devices.hpp"
 #include "comp/autonFunctions.hpp"
+#include "comp/opFunctions.hpp"
 
 bool onFire {true};
 
@@ -27,6 +28,8 @@ std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisController
 										.withDimensions(scales)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
 										.buildOdometry();
+std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
+
 
 bool trayToggle = false;
 bool danIsDriving = false;
@@ -57,8 +60,6 @@ void opcontrol()
 	// 									.withDimensions(scales)
 	// 									.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.0001_mps)
 	// 									.buildOdometry();
-	std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
-
 
 
 	// arm.arm->tarePosition();
@@ -66,72 +67,16 @@ void opcontrol()
 	while(1)
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
-		if(driverDan.changedToPressed())
-			danIsDriving = !danIsDriving;
-		if(danIsDriving == true)
-			model->arcade(controller.getAnalog(okapi::ControllerAnalog::leftY),
-				-controller.getAnalog(okapi::ControllerAnalog::rightX));
-		else
-			model->tank(controller.getAnalog(okapi::ControllerAnalog::rightY),
-						controller.getAnalog(okapi::ControllerAnalog::leftY));
+		
+		driveToggle();
 
+		trayAndLiftControl();
 
-		if(trayButton.changedToPressed())
-		{
-			rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-			if(trayToggle)
-				tray.setState(TrayController::trayStates::down);
-			else
-				tray.setState(TrayController::trayStates::up);
-		}
-		else if(liftUpButton.isPressed())
-		{
-			tray.setState(TrayController::trayStates::armup);
-			lift.moveVelocity(100);
-			// pros::delay(800);
-			// tray.setState(TrayController::trayStates::armdown);
-			// lift.moveAbsolute(0, 60);
-			// if(armToggle)
-			// {
-			// 	tray.setState(TrayController::trayStates::armdown);
-			// 	arm.setState(ArmController::armStates::down);
-			// }
-			// else
-			// {
-			// 	tray.setState(TrayController::trayStates::armup);
-			// 	arm.setState(ArmController::armStates::up);
-			// }
-		}
-		else if(liftDownButton.isPressed() && lift.getPosition() >= 0)
-		{
-			lift.moveVelocity(-80);
-			if(lift.getPosition() <= 280){
-				tray.setState(TrayController::trayStates::armdown);
-			}
-		}
-		else {
-			lift.moveVelocity(0);
-		}
+		rollerBrakeManagement();
 
-		// if(arm.getState() == ArmController::armStates::off)
-		// 	arm.arm->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-		// else
-		// 	arm.arm->setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+		rollerControl();
 
-		if(tray.getState() == TrayController::trayStates::off || tray.getState() == TrayController::trayStates::armup || tray.getState() == TrayController::trayStates::armdown)
-			rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-		else
-			rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-
-		if(intakeButton.isPressed())
-			rollers.moveVelocity(160);
-		else if(outtakeButton.isPressed())
-			rollers.moveVelocity(-120);
-		else
-			rollers.moveVelocity(0);
-
-		// if(controller.getDigital(okapi::ControllerDigital::left))
-		// 	arm.setState(ArmController::armStates::kill);
+		pros::delay(20);
 	}
 
 }
