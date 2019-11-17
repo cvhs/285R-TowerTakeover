@@ -34,6 +34,8 @@ void opcontrol()
 	while(1)
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+
+		chassisWidthTest();
 		
 		driveToggle();
 
