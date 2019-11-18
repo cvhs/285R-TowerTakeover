@@ -64,9 +64,10 @@ void red5CubesCartesian() {
   // Set start position
   chassis->setState({0.5_ft, 2.25_ft, 270_deg});
 
-  // Start rollers and drive forward to gather 4 cubes
+  // Start rollers and drive forward to gather 4 cubes then stop rollers
   rollers.moveVelocity(160);
   chassis->driveToPoint({4.5_ft, 2.25_ft});
+  rollers.moveVelocity(0);
 
   // Reverse a little bit
   chassis->driveToPoint({2.25_ft, 2.25_ft}, true);
@@ -74,6 +75,29 @@ void red5CubesCartesian() {
   // Turn to face and drive to small zone
   // TODO: tune the offset distance
   chassis->driveToPoint({0_ft, 0_ft}, false, 1.8_ft);
+
+  // Stack
+  stack();
+}
+
+void blue5CubesCartesian() {
+  // Set Cartesian StateMode
+  chassis->setDefaultStateMode(okapi::StateMode::CARTESIAN);
+
+  // Set start position
+  chassis->setState({11.5_ft, 2.25_ft, 90_deg});
+
+  // Start rollers and drive forward to gather 4 cubes
+  rollers.moveVelocity(160);
+  chassis->driveToPoint({7.5_ft, 2.25_ft});
+  rollers.moveVelocity(0);
+
+  // Reverse a little bit
+  chassis->driveToPoint({9.75_ft, 2.25_ft}, true);
+
+  // Turn to face and drive to small zone
+  // TODO: tune the offset distance (should be same as for red)
+  chassis->driveToPoint({12_ft, 0_ft}, false, 1.8_ft);
 
   // Stack
   stack();
