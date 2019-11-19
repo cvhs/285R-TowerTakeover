@@ -12,7 +12,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	autChassis->moveDistance(6_in);
+	outtakeToStack();
 	// if(onFire)
 	// {
 	// 	red5Cubes();

@@ -19,4 +19,6 @@ extern okapi::ControllerButton driverDan;
 
 extern okapi::Controller controller;
 
+extern pros::ADILineSensor lineSensor;
+
 extern bool danIsDriving;

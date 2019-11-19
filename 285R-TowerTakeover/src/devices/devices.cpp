@@ -29,11 +29,12 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 										.withMotors({ -1, -3 }, { 2, 4 })
 										.withGearset(okapi::AbstractMotor::gearset::green)
 										.withDimensions(scales)
-										.withMaxVelocity(10)
+										.withMaxVelocity(50)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
 										.buildOdometry();
 std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
+pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
 
 bool trayToggle = false;
 bool danIsDriving = false;

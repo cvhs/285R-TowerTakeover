@@ -16,6 +16,14 @@ void stack() {
   rollers.moveVelocity(0);
 }
 
+// TODO: tune the sensor val cutoff + outtake speed
+void outtakeToStack() {
+  while(lineSensor.get_value() > 1000) {
+    rollers.moveVelocity(-60);
+  }
+  rollers.moveVelocity(0);
+}
+
 void red5Cubes() {
   // Turn on rollers
   rollers.moveVelocity(160);
