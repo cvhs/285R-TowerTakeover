@@ -12,14 +12,15 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	if(onFire)
-	{
-		red5Cubes();
-	}
-	else
-	{
-		blue5Cubes();
-	}
+	autChassis->moveDistance(6_in);
+	// if(onFire)
+	// {
+	// 	red5Cubes();
+	// }
+	// else
+	// {
+	// 	blue5Cubes();
+	// }
 }
 
 void opcontrol()

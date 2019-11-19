@@ -18,10 +18,18 @@ okapi::ChassisScales scales
 };
 okapi::Controller controller;
 
-std::shared_ptr<okapi::OdomChassisController> chassis = okapi::ChassisControllerBuilder()
+std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuilder()
 										.withMotors({ -1, -3 }, { 2, 4 })
 										.withGearset(okapi::AbstractMotor::gearset::green)
 										.withDimensions(scales)
+										.build();
+
+// TODO: tune max velocity
+std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControllerBuilder()
+										.withMotors({ -1, -3 }, { 2, 4 })
+										.withGearset(okapi::AbstractMotor::gearset::green)
+										.withDimensions(scales)
+										.withMaxVelocity(10)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
 										.buildOdometry();
 std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
