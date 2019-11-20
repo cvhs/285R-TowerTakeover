@@ -37,9 +37,9 @@ void trayAndLiftControl() {
     tray.setState(TrayController::trayStates::armup);
     lift.moveVelocity(100);
   }
-  else if(liftDownButton.isPressed() && lift.getPosition() >= 0) {
+  else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-80);
-    if(lift.getPosition() <= 280){
+    if(lift.getPosition() <= 290){
       tray.setState(TrayController::trayStates::armdown);
     }
   }

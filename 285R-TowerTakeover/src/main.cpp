@@ -4,7 +4,9 @@
 
 bool onFire {true};
 
-void initialize() {}
+void initialize() {
+	lineSensor.calibrate();
+}
 
 void disabled() {}
 
@@ -12,10 +14,18 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	outtakeToStack();
+	pros::ADIDigitalIn red('A');
+	pros::ADIDigitalIn blue('B');
+	pros::ADIDigitalIn one('C');
+
+	while(1) {
+		std::cout << red.get_value() << std::endl;
+	}
+	// while(lineSensor.get_value() == 0){}
+	// rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
 	// if(onFire)
 	// {
-	// 	red5Cubes();
+	// 	red5CubesCartesian();
 	// }
 	// else
 	// {
@@ -36,7 +46,9 @@ void opcontrol()
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
 
-		chassisWidthTest(5);
+		// std::cout << lineSensor.get_value() << std::endl;
+
+		// chassisWidthTest(5);
 		
 		driveToggle();
 

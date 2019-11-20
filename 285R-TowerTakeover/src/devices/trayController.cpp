@@ -35,7 +35,7 @@ void TrayController::run()
         angler->moveAbsolute(2900, 60);
         pros::delay(1500);
         angler->moveAbsolute(3100, 50);
-        pros::delay(1500);
+        pros::delay(1300);
         trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;
         trayToggle = true;
@@ -55,7 +55,7 @@ void TrayController::run()
         pros::delay(300);
         angler->moveAbsolute(1350, 60);
         pros::delay(2000);
-        trayState = trayStates::off;
+        // trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;
         trayToggle = true;
         break;

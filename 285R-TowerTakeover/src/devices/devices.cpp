@@ -13,7 +13,7 @@ okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractM
 
 okapi::ChassisScales scales
 {
-	{4.125_in, 9.75_in},
+	{4.125_in, 10.1_in},
 	imev5GreenTPR
 };
 okapi::Controller controller;
@@ -29,7 +29,7 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 										.withMotors({ -1, -3 }, { 2, 4 })
 										.withGearset(okapi::AbstractMotor::gearset::green)
 										.withDimensions(scales)
-										.withMaxVelocity(50)
+										.withMaxVelocity(75)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
 										.buildOdometry();
 std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
