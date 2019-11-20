@@ -1,6 +1,10 @@
 #include "../devices/devices.hpp"
 #include "autonFunctions.hpp"
 
+void selectAuton() {
+  
+}
+
 void stack() {
   // Push bottom cube low enough that it touches ground
   outtakeToStack();
