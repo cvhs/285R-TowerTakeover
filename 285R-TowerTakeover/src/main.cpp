@@ -2,7 +2,7 @@
 #include "comp/autonFunctions.hpp"
 #include "comp/opFunctions.hpp"
 
-bool onFire {true};
+bool onFire {false};
 
 void initialize() {
 	lineSensor.calibrate();
@@ -14,23 +14,16 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	pros::ADIDigitalIn red('A');
-	pros::ADIDigitalIn blue('B');
-	pros::ADIDigitalIn one('C');
-
-	while(1) {
-		std::cout << red.get_value() << std::endl;
+	while(lineSensor.get_value() == 0){}
+	rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+	if(onFire)
+	{
+		red5CubesCartesian();
 	}
-	// while(lineSensor.get_value() == 0){}
-	// rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-	// if(onFire)
-	// {
-	// 	red5CubesCartesian();
-	// }
-	// else
-	// {
-	// 	blue5Cubes();
-	// }
+	else
+	{
+		blue5CubesCartesian();
+	}
 }
 
 void opcontrol()

@@ -32,8 +32,8 @@ void TrayController::run()
 
         case up:
         std::cout << "trayState: up" << std::endl;
-        angler->moveAbsolute(2900, 60);
-        pros::delay(1500);
+        angler->moveAbsolute(2400, 90);
+        pros::delay(800);
         angler->moveAbsolute(3100, 50);
         pros::delay(1300);
         trayState = trayStates::off;
@@ -53,8 +53,8 @@ void TrayController::run()
         case armup:
         std::cout << "trayState: armup" << std::endl;
         pros::delay(300);
-        angler->moveAbsolute(1350, 60);
-        pros::delay(2000);
+        angler->moveAbsolute(1350, 85);
+        pros::delay(1000);
         // trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;
         trayToggle = true;
@@ -62,7 +62,7 @@ void TrayController::run()
 
         case armdown:
         std::cout << "trayState: armdown" << std::endl;
-        angler->moveAbsolute(0, 60);
+        angler->moveAbsolute(0, 100);
         pros::delay(1000);
         trayState = trayStates::off;
         std::cout << "trayState: off" << std::endl;

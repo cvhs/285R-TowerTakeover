@@ -38,8 +38,8 @@ void trayAndLiftControl() {
     lift.moveVelocity(100);
   }
   else if(liftDownButton.isPressed()) {
-    lift.moveVelocity(-80);
-    if(lift.getPosition() <= 290){
+    lift.moveVelocity(-70);
+    if(lift.getPosition() <= 450){
       tray.setState(TrayController::trayStates::armdown);
     }
   }
@@ -57,7 +57,7 @@ void rollerBrakeManagement() {
 
 void rollerControl() {
   if(intakeButton.isPressed())
-    rollers.moveVelocity(160);
+    rollers.moveVelocity(140);
   else if(outtakeButton.isPressed())
     rollers.moveVelocity(-120);
   else
