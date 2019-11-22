@@ -13,7 +13,7 @@ okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractM
 
 okapi::ChassisScales scales
 {
-	{4.125_in, 10.1_in},
+	{4.125_in, 10.2_in},
 	imev5GreenTPR
 };
 okapi::Controller controller;
@@ -35,6 +35,7 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
+okapi::Potentiometer pot = okapi::Potentiometer('B');
 
 bool trayToggle = false;
 bool danIsDriving = false;

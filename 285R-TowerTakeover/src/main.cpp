@@ -8,21 +8,46 @@ void initialize() {
 	lineSensor.calibrate();
 }
 
-void disabled() {}
+void disabled() {
+	// selectAuton();
+}
 
 void competition_initialize() {}
 
 void autonomous()
 {
 	while(lineSensor.get_value() == 0){}
+	int val = pot.get();
+	aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
+
 	rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-	if(onFire)
-	{
+	// if(onFire)
+	// {
+	// 	red5CubesCartesian();
+	// }
+	// else
+	// {
+	// 	blue5CubesCartesian();
+	// }
+
+	switch(aut) {
+		case 0: // red
 		red5CubesCartesian();
-	}
-	else
-	{
+		break;
+
+		case 1: // blue
 		blue5CubesCartesian();
+		break;
+
+		case 2: // one cube
+		oneCube();
+		break;
+
+		case 3: // no aut
+		break;
+
+		default:
+		break;
 	}
 }
 

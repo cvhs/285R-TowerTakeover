@@ -1,8 +1,13 @@
 #include "../devices/devices.hpp"
 #include "autonFunctions.hpp"
 
+int aut = 3;
 void selectAuton() {
-  
+  int val = pot.get();
+  while(1) {
+    val = pot.get();
+    aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
+  }
 }
 
 void stack() {
@@ -72,8 +77,17 @@ void blue5CubesCartesian() {
   rollers.moveVelocity(0);
 
   // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 0_ft}, false, 1.8_ft);
+  autChassis->driveToPoint({0_ft, 0_ft}, false, 2_ft);
 
   // Stack
   stack();
+}
+
+void oneCube() {
+  autChassis->moveDistance(-1.5_ft);
+  pros::delay(800);
+  autChassis->moveDistance(1.5_ft);
+  // tray.setState(TrayController::trayStates::up);
+  // pros::delay(1000);
+  // tray.setState(TrayController::trayStates::down);
 }
