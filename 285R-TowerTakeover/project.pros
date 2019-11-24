@@ -148,6 +148,42 @@
                 ],
                 "version": "3.2.0"
             },
+            "lib7842": {
+                "location": "C:\\Users\\menon\\AppData\\Roaming\\PROS\\templates\\lib7842@1.0.0",
+                "metadata": {
+                    "origin": "local"
+                },
+                "name": "lib7842",
+                "py/object": "pros.conductor.templates.local_template.LocalTemplate",
+                "supported_kernels": "^3.2.0",
+                "system_files": [
+                    "include/lib7842/api/gui/page.hpp",
+                    "firmware/lib7842.a",
+                    "include/lib7842/api/purePursuit/pathGenerator.hpp",
+                    "include/lib7842/api/gui/graph.hpp",
+                    "include/lib7842/api/other/utility.hpp",
+                    "include/lib7842/api/positioning/path/abstractPath.hpp",
+                    "include/lib7842/api.hpp",
+                    "include/lib7842/api/other/taskWrapper.hpp",
+                    "include/lib7842/api/odometry/odomXController.hpp",
+                    "include/lib7842/api/positioning/path/dataPath.hpp",
+                    "include/lib7842/api/positioning/point/vector.hpp",
+                    "include/lib7842/api/gui/buttonMatrix.hpp",
+                    "include/lib7842/api/positioning/path/compoundPath.hpp",
+                    "include/lib7842/api/positioning/point/dataPoint.hpp",
+                    "include/lib7842/api/gui/autonSelector.hpp",
+                    "include/lib7842/api/gui/screen.hpp",
+                    "include/lib7842/api/odometry/customOdometry.hpp",
+                    "include/lib7842/api/odometry/odomController.hpp",
+                    "include/lib7842/api/positioning/point/state.hpp",
+                    "include/lib7842/api/gui/odomDebug.hpp",
+                    "include/lib7842/api/odometry/odomMath.hpp",
+                    "include/lib7842/api/positioning/path/simplePath.hpp"
+                ],
+                "target": "v5",
+                "user_files": [],
+                "version": "1.0.0"
+            },
             "okapilib": {
                 "location": "C:\\Users\\menon\\AppData\\Roaming\\PROS\\templates\\okapilib@4.0.0-RC8",
                 "metadata": {
