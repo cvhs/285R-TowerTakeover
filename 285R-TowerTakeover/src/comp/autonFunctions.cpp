@@ -20,7 +20,7 @@ void stack() {
   tray.setState(TrayController::trayStates::up);
   while(tray.getState() == TrayController::trayStates::up){}
   tray.setState(TrayController::trayStates::down);
-  rollers.moveVelocity(-70);
+  rollers.moveVelocity(-75);
   pros::delay(200);
   autChassis->moveDistance(-1_ft);
   rollers.moveVelocity(0);
@@ -43,8 +43,8 @@ void red5CubesCartesian() {
   autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
 
   // Start rollers and drive forward to gather 4 cubes then stop rollers
-  rollers.moveVelocity(145);
-  autChassis->driveToPoint({4.85_ft, 2.25_ft});
+  rollers.moveVelocity(180);
+  autChassis->driveToPoint({4.1_ft, 2.25_ft});
   pros::delay(300);
   rollers.moveVelocity(100);
 
@@ -68,8 +68,8 @@ void blue5CubesCartesian() {
   autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
 
   // Start rollers and drive forward to gather 4 cubes
-  rollers.moveVelocity(145);
-  autChassis->driveToPoint({4.85_ft, 2.25_ft});
+  rollers.moveVelocity(180);
+  autChassis->driveToPoint({4.1_ft, 2.25_ft});
   rollers.moveVelocity(100);
 
   // Reverse a little bit
@@ -77,7 +77,7 @@ void blue5CubesCartesian() {
   rollers.moveVelocity(0);
 
   // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 0_ft}, false, 2_ft);
+  autChassis->driveToPoint({0_ft, 0_ft}, false, 2.1_ft);
 
   // Stack
   stack();

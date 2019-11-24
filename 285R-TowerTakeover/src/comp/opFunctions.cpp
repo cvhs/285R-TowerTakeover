@@ -39,9 +39,13 @@ void trayAndLiftControl() {
   }
   else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-70);
-    if(lift.getPosition() <= 450){
+    if(lift.getCurrentDraw() > 850){
       tray.setState(TrayController::trayStates::armdown);
     }
+    std::cout << lift.getCurrentDraw() << std::endl;
+    // if(lift.getPosition() <= 500){
+    //   tray.setState(TrayController::trayStates::armdown);
+    // }
   }
   else {
     lift.moveVelocity(0);
@@ -57,7 +61,7 @@ void rollerBrakeManagement() {
 
 void rollerControl() {
   if(intakeButton.isPressed())
-    rollers.moveVelocity(140);
+    rollers.moveVelocity(200);
   else if(outtakeButton.isPressed())
     rollers.moveVelocity(-120);
   else
