@@ -10,10 +10,13 @@
   #include "lvgl/lvgl.h"
 #endif
 
-namespace lib7842 {
+namespace lib7842::GUI {
 
 using namespace okapi;
 
+/**
+ * An LVGL container. This class can be extended to implement pages.
+ */
 class Page {
 public:
   /**
@@ -65,4 +68,4 @@ protected:
   std::shared_ptr<Logger> logger {nullptr};
 };
 
-} // namespace lib7842
+} // namespace lib7842::GUI

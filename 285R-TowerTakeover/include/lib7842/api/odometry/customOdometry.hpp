@@ -7,6 +7,10 @@
 #include "okapi/api/util/logging.hpp"
 
 namespace lib7842 {
+
+/**
+ * Odometry algorithm that directly uses 5225A's tracking algorithm. Statemode is assumed to be cartesian.
+ */
 class CustomOdometry : public Odometry, public TaskWrapper {
 public:
   /**
@@ -71,7 +75,7 @@ public:
    *
    * @return The internal ChassisScales.
    */
-  virtual const ChassisScales& getScales() const;
+  virtual ChassisScales getScales() override;
 
   /**
    * Odometry calculation loop

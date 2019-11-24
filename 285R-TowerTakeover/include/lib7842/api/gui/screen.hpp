@@ -4,11 +4,14 @@
 #include "page.hpp"
 #include <string>
 
-namespace lib7842 {
+namespace lib7842::GUI {
 
 using namespace okapi;
 
-class Screen : public TaskWrapper {
+/**
+ * An LVGL TabView that manages Pages. It contains its own task for rendering.
+ */
+class Screen : public Page, public TaskWrapper {
 public:
   /**
    * Create a new screen. Theme color is inherited from the parent.
@@ -53,23 +56,26 @@ public:
    */
   template <typename T> T& makePage(const std::string& iname = T::getName()) {
     static_assert(std::is_base_of<Page, T>::value, "T is not a Page");
-    auto ptr = std::make_shared<T>(newPage(iname), themeColor);
+    auto ptr = std::make_shared<T>(newPage(iname), themeColor, Page::logger);
     ptr->initialize();
     pages.emplace_back(ptr);
     return *ptr;
   }
 
+  /**
+   * Render the page. Override this method to implement custom rendering.
+   */
+  void render() override;
+
+  /**
+   * Task to render the page.
+   */
   void loop() override;
 
-protected:
+private:
   lv_obj_t* tabview {nullptr};
-  const lv_color_t themeColor;
-
-  std::shared_ptr<Logger> logger {nullptr};
-
   std::vector<std::shared_ptr<Page>> pages {};
 
-private:
   lv_style_t style_bg;
   lv_style_t style_indic;
   lv_style_t style_btn_bg;
@@ -79,4 +85,4 @@ private:
   lv_style_t pageStyle;
 };
 
-} // namespace lib7842
+} // namespace lib7842::GUI

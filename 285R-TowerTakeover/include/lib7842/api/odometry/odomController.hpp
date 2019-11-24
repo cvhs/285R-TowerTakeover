@@ -27,6 +27,9 @@ using Turner = std::function<void(ChassisModel& model, double vel)>;
  */
 using AngleCalculator = std::function<QAngle(const OdomController& odom)>;
 
+/**
+ * Odometry motion controller for skid-steer chassis.
+ */
 class OdomController {
 public:
   /**
@@ -41,7 +44,7 @@ public:
    */
   OdomController(
     const std::shared_ptr<ChassisModel>& imodel,
-    const std::shared_ptr<CustomOdometry>& iodometry,
+    const std::shared_ptr<Odometry>& iodometry,
     std::unique_ptr<IterativePosPIDController> idistanceController,
     std::unique_ptr<IterativePosPIDController> iturnController,
     std::unique_ptr<IterativePosPIDController> iangleController,
@@ -235,7 +238,7 @@ protected:
   void driveVector(double forwardSpeed, double yaw);
 
   std::shared_ptr<ChassisModel> model {nullptr};
-  std::shared_ptr<CustomOdometry> odometry {nullptr};
+  std::shared_ptr<Odometry> odometry {nullptr};
   std::unique_ptr<IterativePosPIDController> distanceController {nullptr};
   std::unique_ptr<IterativePosPIDController> angleController {nullptr};
   std::unique_ptr<IterativePosPIDController> turnController {nullptr};

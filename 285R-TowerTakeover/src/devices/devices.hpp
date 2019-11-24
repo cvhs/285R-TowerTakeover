@@ -2,9 +2,10 @@
 #include "trayController.hpp"
 
 extern okapi::ChassisScales scales;
-extern std::shared_ptr<okapi::ChassisController> chassis;
-extern std::shared_ptr<okapi::OdomChassisController> autChassis;
-extern std::shared_ptr<okapi::ChassisModel> model;
+extern std::shared_ptr<okapi::SkidSteerModel> model;
+extern std::shared_ptr<okapi::TwoEncoderOdometry> odom;
+extern std::shared_ptr<lib7842::OdomController> odomController;
+
 
 extern okapi::MotorGroup rollers;
 extern okapi::Motor lift;

@@ -16,23 +16,35 @@ okapi::ChassisScales scales
 	{4.125_in, 10.2_in},
 	imev5GreenTPR
 };
+
+std::shared_ptr<okapi::SkidSteerModel> model = std::make_shared<okapi::SkidSteerModel>(
+	std::make_shared<okapi::MotorGroup>(MotorGroup({-1, -3})), 
+	std::make_shared<okapi::MotorGroup>(MotorGroup({2, 4})),
+	std::make_shared<okapi::IntegratedEncoder>(okapi::IntegratedEncoder(1, true)),
+	std::make_shared<okapi::IntegratedEncoder>(okapi::IntegratedEncoder(2, false)),
+	200.0, 12000.0
+);
+
+std::shared_ptr<okapi::TwoEncoderOdometry> odom = std::make_shared<okapi::TwoEncoderOdometry>(
+	okapi::TimeUtilFactory::createDefault(),
+	model, scales
+);
+
+std::shared_ptr<lib7842::OdomController> odomController = std::make_shared<lib7842::OdomController>(
+	model, odom,
+	std::make_unique<okapi::IterativePosPIDController>(
+		okapi::IterativePosPIDController({0, 0, 0, 0}, okapi::TimeUtilFactory::createDefault())
+	),
+	std::make_unique<okapi::IterativePosPIDController>(
+		okapi::IterativePosPIDController({0, 0, 0, 0}, okapi::TimeUtilFactory::createDefault())
+	),
+	std::make_unique<okapi::IterativePosPIDController>(
+		okapi::IterativePosPIDController({0, 0, 0, 0}, okapi::TimeUtilFactory::createDefault())
+	),
+	1_mm
+);
+
 okapi::Controller controller;
-
-std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuilder()
-										.withMotors({ -1, -3 }, { 2, 4 })
-										.withGearset(okapi::AbstractMotor::gearset::green)
-										.withDimensions(scales)
-										.build();
-
-// TODO: tune max velocity
-std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControllerBuilder()
-										.withMotors({ -1, -3 }, { 2, 4 })
-										.withGearset(okapi::AbstractMotor::gearset::green)
-										.withDimensions(scales)
-										.withMaxVelocity(75)
-										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg, 0.00001_mps)
-										.buildOdometry();
-std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
 okapi::Potentiometer pot = okapi::Potentiometer('B');
