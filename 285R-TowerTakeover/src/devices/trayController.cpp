@@ -2,15 +2,14 @@
 
 TrayController::TrayController(int iangler) :
 angler(new okapi::Motor(iangler)), task(taskFnc, this, "Tray Controller") {
+  angler->setGearing(okapi::AbstractMotor::gearset::red);
 }
 
 void TrayController::setState(trayStates state) {trayState = state;}
 
 TrayController::trayStates TrayController::getState() {return trayState;}
 
-void TrayController::run()
-{
-  angler->setGearing(okapi::AbstractMotor::gearset::red);
+void TrayController::run() { 
   while(true)
   {
     angler->setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
