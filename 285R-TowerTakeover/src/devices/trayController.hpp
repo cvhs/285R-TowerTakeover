@@ -10,15 +10,17 @@ public:
   enum trayStates
   {
     off,
+    holding,
     up,
+    movingUpFast,
+    movingUpSlow,
     down,
     armup,
-    armdown
+    movingToArm
   };
 
   Motor* angler = nullptr;
 
-  // pros::Task task(pros::task_fn_t, void*);
   pros::Task task;
 
   trayStates trayState = off;
