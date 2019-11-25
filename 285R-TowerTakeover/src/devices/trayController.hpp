@@ -30,8 +30,6 @@ public:
 
   void setState(trayStates);
   trayStates getState();
-  void disable();
-  void enable();
 
   void run();
   static void taskFnc(void*);

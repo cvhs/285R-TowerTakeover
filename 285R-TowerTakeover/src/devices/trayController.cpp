@@ -8,13 +8,6 @@ void TrayController::setState(trayStates state) {trayState = state;}
 
 TrayController::trayStates TrayController::getState() {return trayState;}
 
-void TrayController::disable()
-{
-  disabled = true;
-}
-
-void TrayController::enable() {disabled = false;}
-
 void TrayController::run()
 {
   angler->setGearing(okapi::AbstractMotor::gearset::red);
