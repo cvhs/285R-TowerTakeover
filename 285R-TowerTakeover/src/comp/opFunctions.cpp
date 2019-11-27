@@ -40,12 +40,9 @@ void trayAndLiftControl() {
   else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-70);
     if(lift.getCurrentDraw() > 850){
-      tray.setState(TrayController::trayStates::armdown);
+      tray.setState(TrayController::trayStates::down);
     }
     std::cout << lift.getCurrentDraw() << std::endl;
-    // if(lift.getPosition() <= 500){
-    //   tray.setState(TrayController::trayStates::armdown);
-    // }
   }
   else {
     lift.moveVelocity(0);
@@ -53,7 +50,7 @@ void trayAndLiftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(tray.getState() == TrayController::trayStates::off || tray.getState() == TrayController::trayStates::armup || tray.getState() == TrayController::trayStates::armdown)
+  if(tray.getState() == TrayController::trayStates::off || tray.getState() == TrayController::trayStates::armup || tray.getState() == TrayController::trayStates::down)
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
   else
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
