@@ -48,15 +48,6 @@ void TrayController::run() {
         trayState = trayStates::off;
         trayToggle = false;
         break;
-
-        case armup:
-        pros::delay(300);
-        angler->moveAbsolute(1350, 85);
-        trayToggle = true;
-        break;
-
-        case movingToArm:
-        break;
       }
     }
     pros::delay(10);

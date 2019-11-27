@@ -14,9 +14,7 @@ public:
     up,
     movingUpFast,
     movingUpSlow,
-    down,
-    armup,
-    movingToArm
+    down
   };
 
   Motor* angler = nullptr;
