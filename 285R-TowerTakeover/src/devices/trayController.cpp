@@ -3,6 +3,7 @@
 TrayController::TrayController(int iangler) :
 angler(new okapi::Motor(iangler)), task(taskFnc, this, "Tray Controller") {
   angler->setGearing(okapi::AbstractMotor::gearset::red);
+  rollerCoastStates = {holding, up, movingUpFast, movingUpSlow};
 }
 
 void TrayController::setState(trayStates state) {trayState = state;}

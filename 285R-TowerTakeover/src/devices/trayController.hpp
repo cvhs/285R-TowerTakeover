@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <set>
 
 extern bool trayToggle;
 
@@ -16,6 +17,8 @@ public:
     movingUpSlow,
     down
   };
+
+  std::array<trayStates, 4> rollerCoastStates;
 
   Motor* angler = nullptr;
 

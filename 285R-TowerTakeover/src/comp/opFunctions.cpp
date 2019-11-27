@@ -48,10 +48,10 @@ void liftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(tray.getState() == TrayController::trayStates::off || tray.getState() == TrayController::trayStates::down)
-    rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-  else
+  if(std::find(tray.rollerCoastStates.begin(), tray.rollerCoastStates.end(), tray.getState()))
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+  else
+    rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
 }
 
 void rollerControl() {
