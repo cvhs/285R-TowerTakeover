@@ -19,26 +19,26 @@ void TrayController::run() {
       switch(trayState)
       {
         case off:
+        angler->moveVoltage(0);
+        break;
+
+        case holding:
         angler->moveVelocity(0);
         break;
 
         case up:
-        std::cout << "trayState: up" << std::endl;
         angler->moveAbsolute(2400, 90);
         pros::delay(800);
         angler->moveAbsolute(3100, 50);
         pros::delay(1300);
         trayState = trayStates::off;
-        std::cout << "trayState: off" << std::endl;
         trayToggle = true;
         break;
 
         case down:
-        std::cout << "trayState: down" << std::endl;
         angler->moveAbsolute(0, 80);
         pros::delay(2000);
         trayState = trayStates::off;
-        std::cout << "trayState: off" << std::endl;
         trayToggle = false;
         break;
 
@@ -46,18 +46,13 @@ void TrayController::run() {
         std::cout << "trayState: armup" << std::endl;
         pros::delay(300);
         angler->moveAbsolute(1350, 85);
-        // pros::delay(1000);
-        // trayState = trayStates::off;
-        std::cout << "trayState: off" << std::endl;
         trayToggle = true;
         break;
 
         case armdown:
-        std::cout << "trayState: armdown" << std::endl;
         angler->moveAbsolute(0, 100);
         pros::delay(1000);
         trayState = trayStates::off;
-        std::cout << "trayState: off" << std::endl;
         trayToggle = false;
         break;
       }
