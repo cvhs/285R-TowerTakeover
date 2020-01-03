@@ -25,7 +25,7 @@ void driveToggle() {
           controller.getAnalog(okapi::ControllerAnalog::leftY));
 }
 
-void trayAndLiftControl() {
+void trayControl() {
   if(trayButton.changedToPressed()) {
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     if(trayToggle)
@@ -33,19 +33,14 @@ void trayAndLiftControl() {
     else
       tray.setState(TrayController::trayStates::up);
   }
-  else if(liftUpButton.isPressed()) {
-    tray.setState(TrayController::trayStates::armup);
+}
+
+void liftControl() {
+  if(liftUpButton.isPressed()) {
     lift.moveVelocity(100);
   }
   else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-70);
-    if(lift.getCurrentDraw() > 850){
-      tray.setState(TrayController::trayStates::armdown);
-    }
-    std::cout << lift.getCurrentDraw() << std::endl;
-    // if(lift.getPosition() <= 500){
-    //   tray.setState(TrayController::trayStates::armdown);
-    // }
   }
   else {
     lift.moveVelocity(0);
@@ -53,10 +48,10 @@ void trayAndLiftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(tray.getState() == TrayController::trayStates::off || tray.getState() == TrayController::trayStates::armup || tray.getState() == TrayController::trayStates::armdown)
-    rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-  else
+  if(tray.coastRollers())
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+  else
+    rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
 }
 
 void rollerControl() {

@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <set>
 
 extern bool trayToggle;
 
@@ -10,15 +11,17 @@ public:
   enum trayStates
   {
     off,
+    holding,
     up,
-    down,
-    armup,
-    armdown
+    movingUpFast,
+    movingUpSlow,
+    down
   };
+
+  std::array<trayStates, 4> rollerCoastStates;
 
   Motor* angler = nullptr;
 
-  // pros::Task task(pros::task_fn_t, void*);
   pros::Task task;
 
   trayStates trayState = off;
@@ -28,8 +31,7 @@ public:
 
   void setState(trayStates);
   trayStates getState();
-  void disable();
-  void enable();
+  bool coastRollers();
 
   void run();
   static void taskFnc(void*);
