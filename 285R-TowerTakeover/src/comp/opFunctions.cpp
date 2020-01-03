@@ -48,7 +48,7 @@ void liftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(std::find(tray.rollerCoastStates.begin(), tray.rollerCoastStates.end(), tray.getState()))
+  if(tray.coastRollers())
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
   else
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);

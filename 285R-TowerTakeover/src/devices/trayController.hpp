@@ -31,6 +31,7 @@ public:
 
   void setState(trayStates);
   trayStates getState();
+  bool coastRollers();
 
   void run();
   static void taskFnc(void*);

@@ -10,6 +10,18 @@ void TrayController::setState(trayStates state) {trayState = state;}
 
 TrayController::trayStates TrayController::getState() {return trayState;}
 
+bool TrayController::coastRollers() {
+  bool coast = false;
+  for(int i = 0; i < 4; i++) {
+    if(trayState == rollerCoastStates[i]) {
+      coast = true;
+      break;
+    }
+  }
+
+  return coast;
+}
+
 void TrayController::run() { 
   while(true)
   {
@@ -32,12 +44,12 @@ void TrayController::run() {
 
         case movingUpFast:
         angler->moveVelocity(90);
-        if(angler.getPosition() >= 2400) trayState = trayStates::movingUpSlow;
+        if(angler->getPosition() >= 2400) trayState = trayStates::movingUpSlow;
         break;
 
         case movingUpSlow:
         angler->moveAbsolute(3100, 50);
-        if(angler.isStopped()) trayState = trayStates::holding;
+        if(angler->isStopped()) trayState = trayStates::holding;
         break;
 
         case holding:
