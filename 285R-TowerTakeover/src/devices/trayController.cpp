@@ -19,28 +19,8 @@ void TrayController::run() {
     {
       switch(trayState)
       {
-        case off:
-        angler->moveVoltage(0);
-        break;
-
-        case holding:
-        angler->moveVelocity(0);
-        break;
-
-        // TODO: split this into movingUpFast and movingUpSlow
         case up:
-        angler->moveAbsolute(2400, 90);
-        pros::delay(800);
-        angler->moveAbsolute(3100, 50);
-        pros::delay(1300);
-        trayState = trayStates::holding;
-        trayToggle = true;
-        break;
-
-        case movingUpFast:
-        break;
-
-        case movingUpSlow:
+        trayState = trayStates::movingUpFast;
         break;
 
         case down:
@@ -48,6 +28,24 @@ void TrayController::run() {
         pros::delay(2000);
         trayState = trayStates::off;
         trayToggle = false;
+        break;
+
+        case movingUpFast:
+        angler->moveVelocity(90);
+        if(angler.getPosition() >= 2400) trayState = trayStates::movingUpSlow;
+        break;
+
+        case movingUpSlow:
+        angler->moveAbsolute(3100, 50);
+        if(angler.isStopped()) trayState = trayStates::holding;
+        break;
+
+        case holding:
+        angler->moveVelocity(0);
+        break;
+
+        case off:
+        angler->moveVoltage(0);
         break;
       }
     }
