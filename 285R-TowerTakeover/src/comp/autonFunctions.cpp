@@ -35,54 +35,6 @@ void outtakeToStack() {
   rollers.moveVelocity(0);
 }
 
-void red5CubesCartesian() {
-  // Set Cartesian StateMode
-  autChassis->setDefaultStateMode(okapi::StateMode::CARTESIAN);
-
-  // Set start position
-  autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
-
-  // Start rollers and drive forward to gather 4 cubes then stop rollers
-  rollers.moveVelocity(180);
-  autChassis->driveToPoint({4.1_ft, 2.25_ft});
-  pros::delay(300);
-  rollers.moveVelocity(100);
-
-  // Reverse a little bit
-  autChassis->driveToPoint({2.25_ft, 2.25_ft}, true);
-  rollers.moveVelocity(0);
-
-  // autChassis->turnAngle(-135_deg);
-  // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 4.5_ft}, false, 2.1_ft);
-
-  // Stack
-  stack();
-}
-
-void blue5CubesCartesian() {
-  // Set Cartesian StateMode
-  autChassis->setDefaultStateMode(okapi::StateMode::CARTESIAN);
-
-  // Set start position
-  autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
-
-  // Start rollers and drive forward to gather 4 cubes
-  rollers.moveVelocity(180);
-  autChassis->driveToPoint({4.1_ft, 2.25_ft});
-  rollers.moveVelocity(100);
-
-  // Reverse a little bit
-  autChassis->driveToPoint({2.25_ft, 2.25_ft}, true);
-  rollers.moveVelocity(0);
-
-  // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 0_ft}, false, 2.1_ft);
-
-  // Stack
-  stack();
-}
-
 void oneCube() {
   autChassis->moveDistance(-1.5_ft);
   pros::delay(800);
