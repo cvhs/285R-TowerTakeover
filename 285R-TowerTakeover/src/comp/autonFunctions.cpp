@@ -35,6 +35,10 @@ void outtakeToStack() {
   rollers.moveVelocity(0);
 }
 
+void deploy() {
+  // TODO: actually figure this out
+}
+
 void oneCube() {
   autChassis->moveDistance(-1.5_ft);
   pros::delay(800);
