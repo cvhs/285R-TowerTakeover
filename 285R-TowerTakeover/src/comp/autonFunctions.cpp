@@ -63,40 +63,17 @@ void deploy() {
 }
 
 void redSmall5Cube() {
-  // Asynchronously generate first path
-  pros::Task pathgen1([] (void* inp) {
-    profiler->generatePath(
-      {{0_ft, 0_ft, 0_deg},
-       {4_ft, 0_ft, 0_deg}},
-      "4 Cubes"
-    );
-  }, (void*)"inp", TASK_PRIORITY_DEFAULT - 1, 
-  TASK_STACK_DEPTH_DEFAULT, "pathgen1");
-
-  // Deploy tray and intake while path is generating
+  // Deploy tray and intake
   deploy();
 
-  // Check if path is done generating, if not then wait until it is then kill the task
-  std::vector<std::string> paths;
-  do {
-    paths = profiler->getPaths();
-  } while(std::find(paths.begin(), paths.end(), "4 Cubes") != paths.end());
-  pathgen1.remove();
-
-  // Start rollers and intake the 4 cubes, generate the next path
+  // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("4 Cubes");
-  profiler->generatePath(
-    {{  0_ft, 0_ft, 0_deg},
-     {2.5_ft, 0_ft, 0_deg}},
-     "Reverse to turn"
-  );
+  profiler->setTarget("dx=4, dy=0");
   profiler->waitUntilSettled();
-  profiler->removePath("4 Cubes");
 
   // Stop rollers and move back
   rollers.moveVelocity(0);
-  profiler->setTarget("Reverse to turn", true);
+  profiler->setTarget("dx=2.5, dy=0", true);
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
@@ -108,61 +85,27 @@ void redSmall5Cube() {
 }
 
 void redSmall8Cube() {
-  // Asynchronously generate first path
-  pros::Task pathgen1([] (void* inp) {
-    profiler->generatePath(
-      {{0_ft, 0_ft, 0_deg},
-       {4_ft, 0_ft, 0_deg}},
-      "3 Cubes"
-    );
-  }, (void*)"inp", TASK_PRIORITY_DEFAULT - 1, 
-  TASK_STACK_DEPTH_DEFAULT, "pathgen1");
-
-  // Deploy tray and intake while path is generating
+  // Deploy tray and intake
   deploy();
 
-  // Check if path is done generating, if not then wait until it is then kill the task
-  std::vector<std::string> paths;
-  do {
-    paths = profiler->getPaths();
-  } while(std::find(paths.begin(), paths.end(), "3 Cubes") != paths.end());
-  pathgen1.remove();
-
-  // Start rollers and intake the 3 cubes, generate the next path
+  // Start rollers and intake the 3 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("3 Cubes");
-  profiler->generatePath(
-    {{  0_ft, 0_ft, 0_deg},
-     {4_ft, -2_ft, 0_deg}},
-     "Reverse s-curve"
-  );
+  profiler->setTarget("dx=4, dy=0");
   profiler->waitUntilSettled();
-  profiler->removePath("4 Cubes");
 
-  // Stop rollers and s-curve back, generate next path
+  // Stop rollers and s-curve back
   rollers.moveVelocity(0);
-  profiler->setTarget("Reverse to turn", true);
-  profiler->generatePath(
-    {{0_ft, 0_ft, 0_deg},
-     {4_ft, 0_ft, 0_deg}},
-     "4 Cubes"
-  );
+  profiler->setTarget("dx=4, dy=-2", true);
   profiler->waitUntilSettled();
 
-  // Start rollers and intake 4 cubes, generate next path
+  // Start rollers and intake 4 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("4 Cubes");
-  profiler->generatePath(
-    {{  0_ft, 0_ft, 0_deg},
-     {2.5_ft, 0_ft, 0_deg}},
-     "Reverse to turn"
-  );
+  profiler->setTarget("dx=4, dy=-2");
   profiler->waitUntilSettled();
-  profiler->removePath("4 Cubes");
 
   // Stop rollers and move back
   rollers.moveVelocity(0);
-  profiler->setTarget("Reverse to turn", true);
+  profiler->setTarget("dx=2.5, dy=0", true);
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
