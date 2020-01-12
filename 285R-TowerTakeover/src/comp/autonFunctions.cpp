@@ -117,6 +117,28 @@ void redSmall5Cube() {
   stack();
 }
 
+void blueSmall5Cube() {
+  // Deploy tray and intake
+  deploy();
+
+  // Start rollers and intake the 4 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=0");
+  profiler->waitUntilSettled();
+
+  // Stop rollers and move back
+  rollers.moveVelocity(0);
+  profiler->setTarget("dx=2.5 dy=0", true);
+  profiler->waitUntilSettled();
+
+  // Turn to goal zone and approach
+  autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnToAngle(225_deg);
+  autChassis->moveDistance(2_ft);
+
+  stack();
+}
+
 void redSmall8Cube() {
   // Deploy tray and intake
   deploy();
