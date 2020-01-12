@@ -32,6 +32,11 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 										.buildOdometry();
 std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
+std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMotionProfileControllerBuilder()
+										.withOutput(chassis)
+										.withLimits({1.0, 2.0, 10.0}) // TODO: tune these
+										.buildMotionProfileController();
+
 pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
 okapi::Potentiometer pot = okapi::Potentiometer('B');
 

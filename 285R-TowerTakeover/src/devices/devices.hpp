@@ -5,6 +5,7 @@ extern okapi::ChassisScales scales;
 extern std::shared_ptr<okapi::ChassisController> chassis;
 extern std::shared_ptr<okapi::OdomChassisController> autChassis;
 extern std::shared_ptr<okapi::ChassisModel> model;
+extern std::shared_ptr<okapi::AsyncMotionProfileController> profiler;
 
 extern okapi::MotorGroup rollers;
 extern okapi::Motor lift;

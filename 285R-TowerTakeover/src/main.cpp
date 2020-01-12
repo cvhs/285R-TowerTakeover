@@ -6,6 +6,7 @@ bool onFire {false};
 
 void initialize() {
 	lineSensor.calibrate();
+	generatePaths();
 }
 
 void disabled() {
@@ -23,15 +24,15 @@ void autonomous()
 
 	switch(aut) {
 		case 0: // red
-		red5CubesCartesian();
+		// red5CubesCartesian();
 		break;
 
 		case 1: // blue
-		blue5CubesCartesian();
+		// blue5CubesCartesian();
 		break;
 
 		case 2: // one cube
-		oneCube();
+		// oneCube();
 		break;
 
 		case 3: // no aut

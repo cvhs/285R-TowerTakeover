@@ -10,6 +10,62 @@ void selectAuton() {
   }
 }
 
+bool pathLoaded(std::string pathID) {
+  std::vector<std::string> paths = profiler->getPaths();
+  bool loaded = paths.end() != std::find(paths.begin(), paths.end(), pathID);
+
+  return loaded;
+}
+
+void generatePaths() {
+  // Attempt to load in paths from SD card
+  profiler->loadPath("/usd/paths/", "dx=4 dy=0");
+  profiler->loadPath("/usd/paths/", "dx=4 dy=-2");
+  profiler->loadPath("/usd/paths/", "dx=4 dy=2");
+  profiler->loadPath("/usd/paths/", "dx=2.5 dy=0");
+
+  // Check if paths loaded in correctly; if not, generate them and store them to SD card
+  if(!pathLoaded("dx=4 dy=0")) {
+    // 4 feet (for 3 cube row or 4 cube row)
+    profiler->generatePath(
+      {{0_ft, 0_ft, 0_deg},
+      {4_ft, 0_ft, 0_deg}},
+      "dx=4 dy=0"
+    );
+    profiler->storePath("/usd/paths/", "dx=4 dy=0");
+  }
+
+  if(!pathLoaded("dx=4 dy=-2")) {
+    // S-curve
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {4_ft, -2_ft, 0_deg}},
+      "dx=4 dy=-2"
+    );
+    profiler->storePath("/usd/paths", "dx=4 dy=-2");
+  }
+
+  if(!pathLoaded("dx=4 dy=2")) {
+    // S-curve
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {4_ft, 2_ft, 0_deg}},
+      "dx=4 dy=2"
+    );
+    profiler->storePath("/usd/paths", "dx=4 dy=2");
+  }
+
+  if(!pathLoaded("dx=2.5 dy=0")) {
+    // 2.5 feet (for reversing after 4 cube row to stack)
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {2.5_ft, 0_ft, 0_deg}},
+      "dx=2.5 dy=0"
+    );
+    profiler->storePath("/usd/paths/", "dx=2.5 dy=0");
+  }
+}
+
 void stack() {
   // Push bottom cube low enough that it touches ground
   outtakeToStack();
@@ -35,51 +91,115 @@ void outtakeToStack() {
   rollers.moveVelocity(0);
 }
 
-void red5CubesCartesian() {
-  // Set Cartesian StateMode
-  autChassis->setDefaultStateMode(okapi::StateMode::CARTESIAN);
+void deploy() {
+  // TODO: actually figure this out
+}
 
-  // Set start position
-  autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
+void redSmall5Cube() {
+  // Deploy tray and intake
+  deploy();
 
-  // Start rollers and drive forward to gather 4 cubes then stop rollers
-  rollers.moveVelocity(180);
-  autChassis->driveToPoint({4.1_ft, 2.25_ft});
-  pros::delay(300);
-  rollers.moveVelocity(100);
+  // Start rollers and intake the 4 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=0");
+  profiler->waitUntilSettled();
 
-  // Reverse a little bit
-  autChassis->driveToPoint({2.25_ft, 2.25_ft}, true);
+  // Stop rollers and move back
   rollers.moveVelocity(0);
+  profiler->setTarget("dx=2.5 dy=0", true);
+  profiler->waitUntilSettled();
 
-  // autChassis->turnAngle(-135_deg);
-  // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 4.5_ft}, false, 2.1_ft);
+  // Turn to goal zone and approach
+  autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnToAngle(135_deg);
+  autChassis->moveDistance(2_ft);
 
-  // Stack
   stack();
 }
 
-void blue5CubesCartesian() {
-  // Set Cartesian StateMode
-  autChassis->setDefaultStateMode(okapi::StateMode::CARTESIAN);
+void blueSmall5Cube() {
+  // Deploy tray and intake
+  deploy();
 
-  // Set start position
-  autChassis->setState({0.5_ft, 2.25_ft, 90_deg});
+  // Start rollers and intake the 4 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=0");
+  profiler->waitUntilSettled();
 
-  // Start rollers and drive forward to gather 4 cubes
-  rollers.moveVelocity(180);
-  autChassis->driveToPoint({4.1_ft, 2.25_ft});
-  rollers.moveVelocity(100);
-
-  // Reverse a little bit
-  autChassis->driveToPoint({2.25_ft, 2.25_ft}, true);
+  // Stop rollers and move back
   rollers.moveVelocity(0);
+  profiler->setTarget("dx=2.5 dy=0", true);
+  profiler->waitUntilSettled();
 
-  // Turn to face and drive to small zone
-  autChassis->driveToPoint({0_ft, 0_ft}, false, 2.1_ft);
+  // Turn to goal zone and approach
+  autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnToAngle(225_deg);
+  autChassis->moveDistance(2_ft);
 
-  // Stack
+  stack();
+}
+
+void redSmall8Cube() {
+  // Deploy tray and intake
+  deploy();
+
+  // Start rollers and intake the 3 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=0");
+  profiler->waitUntilSettled();
+
+  // Stop rollers and s-curve back
+  rollers.moveVelocity(0);
+  profiler->setTarget("dx=4 dy=-2", true);
+  profiler->waitUntilSettled();
+
+  // Start rollers and intake 4 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=-2");
+  profiler->waitUntilSettled();
+
+  // Stop rollers and move back
+  rollers.moveVelocity(0);
+  profiler->setTarget("dx=2.5 dy=0", true);
+  profiler->waitUntilSettled();
+
+  // Turn to goal zone and approach
+  autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnToAngle(135_deg);
+  autChassis->moveDistance(2_ft);
+
+  stack();
+}
+
+void blueSmall8Cube() {
+  // Deploy tray and intake
+  deploy();
+
+  // Start rollers and intake the 3 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=0");
+  profiler->waitUntilSettled();
+
+  // Stop rollers and s-curve back
+  rollers.moveVelocity(0);
+  profiler->setTarget("dx=4 dy=-2", true);
+  profiler->waitUntilSettled();
+
+  // Start rollers and intake 4 cubes
+  rollers.moveVelocity(200);
+  profiler->setTarget("dx=4 dy=2");
+  profiler->waitUntilSettled();
+
+  // Stop rollers and move back
+  rollers.moveVelocity(0);
+  profiler->setTarget("dx=2.5 dy=0", true);
+  profiler->waitUntilSettled();
+
+  // Turn to goal zone and approach
+  autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnToAngle(225_deg);
+  autChassis->moveDistance(2_ft);
+
   stack();
 }
 
