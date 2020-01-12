@@ -21,6 +21,7 @@ void generatePaths() {
   // Attempt to load in paths from SD card
   profiler->loadPath("/usd/paths/", "dx=4 dy=0");
   profiler->loadPath("/usd/paths/", "dx=4 dy=-2");
+  profiler->loadPath("/usd/paths/", "dx=4 dy=2");
   profiler->loadPath("/usd/paths/", "dx=2.5 dy=0");
 
   // Check if paths loaded in correctly; if not, generate them and store them to SD card
@@ -42,6 +43,16 @@ void generatePaths() {
       "dx=4 dy=-2"
     );
     profiler->storePath("/usd/paths", "dx=4 dy=-2");
+  }
+
+  if(!pathLoaded("dx=4 dy=2")) {
+    // S-curve
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {4_ft, 2_ft, 0_deg}},
+      "dx=4 dy=2"
+    );
+    profiler->storePath("/usd/paths", "dx=4 dy=2");
   }
 
   if(!pathLoaded("dx=2.5 dy=0")) {
