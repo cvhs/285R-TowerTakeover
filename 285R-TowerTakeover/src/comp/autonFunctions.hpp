@@ -3,6 +3,7 @@ void outtakeToStack();
 
 extern void deploy();
 
+extern void generatePaths();
 extern void selectAuton();
 extern int aut;
 

@@ -10,6 +10,29 @@ void selectAuton() {
   }
 }
 
+void generatePaths() {
+  // 4 feet (for 3 cube row or 4 cube row)
+  profiler->generatePath(
+    {{0_ft, 0_ft, 0_deg},
+     {4_ft, 0_ft, 0_deg}},
+    "dx=4, dy=0"
+  );
+
+  // S-curve
+  profiler->generatePath(
+    {{  0_ft, 0_ft, 0_deg},
+     {4_ft, -2_ft, 0_deg}},
+     "dx=4, dy=-2"
+  );
+
+  // 2.5 feet (for reversing after 4 cube row to stack)
+  profiler->generatePath(
+    {{  0_ft, 0_ft, 0_deg},
+     {2.5_ft, 0_ft, 0_deg}},
+     "dx=2.5, dy=2"
+  );
+}
+
 void stack() {
   // Push bottom cube low enough that it touches ground
   outtakeToStack();

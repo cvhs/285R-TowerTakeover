@@ -6,6 +6,7 @@ bool onFire {false};
 
 void initialize() {
 	lineSensor.calibrate();
+	generatePaths();
 }
 
 void disabled() {
