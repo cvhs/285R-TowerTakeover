@@ -14,7 +14,7 @@ void autonomous()
 {
 	while(lineSensor.get_value() == 0){}
 	int val = pot.get();
-	aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
+	int aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
 
 	rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
 

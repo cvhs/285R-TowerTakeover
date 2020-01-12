@@ -1,15 +1,6 @@
 #include "devices/devices.hpp"
 #include "autonUtils.hpp"
 
-int aut = 3;
-void selectAuton() {
-  int val = pot.get();
-  while(1) {
-    val = pot.get();
-    aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
-  }
-}
-
 bool pathLoaded(std::string pathID) {
   std::vector<std::string> paths = profiler->getPaths();
   bool loaded = paths.end() != std::find(paths.begin(), paths.end(), pathID);
