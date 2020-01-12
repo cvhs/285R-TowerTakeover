@@ -10,27 +10,49 @@ void selectAuton() {
   }
 }
 
+bool pathLoaded(std::string pathID) {
+  std::vector<std::string> paths = profiler->getPaths();
+  bool loaded = paths.end() != std::find(paths.begin(), paths.end(), pathID);
+
+  return loaded;
+}
+
 void generatePaths() {
-  // 4 feet (for 3 cube row or 4 cube row)
-  profiler->generatePath(
-    {{0_ft, 0_ft, 0_deg},
-     {4_ft, 0_ft, 0_deg}},
-    "dx=4, dy=0"
-  );
+  // Attempt to load in paths from SD card
+  profiler->loadPath("/usd/paths/", "dx=4 dy=0");
+  profiler->loadPath("/usd/paths/", "dx=4 dy=-2");
+  profiler->loadPath("/usd/paths/", "dx=2.5 dy=0");
 
-  // S-curve
-  profiler->generatePath(
-    {{  0_ft, 0_ft, 0_deg},
-     {4_ft, -2_ft, 0_deg}},
-     "dx=4, dy=-2"
-  );
+  // Check if paths loaded in correctly; if not, generate them and store them to SD card
+  if(!pathLoaded("dx=4 dy=0")) {
+    // 4 feet (for 3 cube row or 4 cube row)
+    profiler->generatePath(
+      {{0_ft, 0_ft, 0_deg},
+      {4_ft, 0_ft, 0_deg}},
+      "dx=4 dy=0"
+    );
+    profiler->storePath("/usd/paths/", "dx=4 dy=0");
+  }
 
-  // 2.5 feet (for reversing after 4 cube row to stack)
-  profiler->generatePath(
-    {{  0_ft, 0_ft, 0_deg},
-     {2.5_ft, 0_ft, 0_deg}},
-     "dx=2.5, dy=2"
-  );
+  if(!pathLoaded("dx=4 dy=-2")) {
+    // S-curve
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {4_ft, -2_ft, 0_deg}},
+      "dx=4 dy=-2"
+    );
+    profiler->storePath("/usd/paths", "dx=4 dy=-2");
+  }
+
+  if(!pathLoaded("dx=2.5 dy=0")) {
+    // 2.5 feet (for reversing after 4 cube row to stack)
+    profiler->generatePath(
+      {{  0_ft, 0_ft, 0_deg},
+      {2.5_ft, 0_ft, 0_deg}},
+      "dx=2.5 dy=0"
+    );
+    profiler->storePath("/usd/paths/", "dx=2.5 dy=0");
+  }
 }
 
 void stack() {
@@ -68,12 +90,12 @@ void redSmall5Cube() {
 
   // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("dx=4, dy=0");
+  profiler->setTarget("dx=4 dy=0");
   profiler->waitUntilSettled();
 
   // Stop rollers and move back
   rollers.moveVelocity(0);
-  profiler->setTarget("dx=2.5, dy=0", true);
+  profiler->setTarget("dx=2.5 dy=0", true);
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
@@ -90,22 +112,22 @@ void redSmall8Cube() {
 
   // Start rollers and intake the 3 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("dx=4, dy=0");
+  profiler->setTarget("dx=4 dy=0");
   profiler->waitUntilSettled();
 
   // Stop rollers and s-curve back
   rollers.moveVelocity(0);
-  profiler->setTarget("dx=4, dy=-2", true);
+  profiler->setTarget("dx=4 dy=-2", true);
   profiler->waitUntilSettled();
 
   // Start rollers and intake 4 cubes
   rollers.moveVelocity(200);
-  profiler->setTarget("dx=4, dy=-2");
+  profiler->setTarget("dx=4 dy=-2");
   profiler->waitUntilSettled();
 
   // Stop rollers and move back
   rollers.moveVelocity(0);
-  profiler->setTarget("dx=2.5, dy=0", true);
+  profiler->setTarget("dx=2.5 dy=0", true);
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
