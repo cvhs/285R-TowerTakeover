@@ -1,16 +1,12 @@
 #include "devices/devices.hpp"
-#include "comp/autonFunctions.hpp"
-#include "comp/opFunctions.hpp"
-
-bool onFire {false};
+#include "comp/comp.hpp"
 
 void initialize() {
 	lineSensor.calibrate();
 	generatePaths();
 }
 
-void disabled() {
-}
+void disabled() {}
 
 void competition_initialize() {}
 
