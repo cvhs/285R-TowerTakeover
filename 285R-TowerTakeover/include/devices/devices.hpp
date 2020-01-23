@@ -9,7 +9,8 @@ extern std::shared_ptr<okapi::AsyncMotionProfileController> profiler;
 
 extern okapi::MotorGroup rollers;
 extern okapi::Motor lift;
-extern TrayController tray;
+extern std::shared_ptr<okapi::AsyncPosPIDController> trayController;
+// extern TrayController tray;
 
 extern okapi::ControllerButton trayButton;
 extern okapi::ControllerButton intakeButton;

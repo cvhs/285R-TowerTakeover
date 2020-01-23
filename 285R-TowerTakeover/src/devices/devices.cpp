@@ -8,7 +8,15 @@ okapi::ControllerButton liftDownButton = okapi::ControllerDigital::L2;
 okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
 okapi::MotorGroup rollers = MotorGroup({ -11, 15 });
-TrayController tray(6);
+
+std::shared_ptr<okapi::AsyncPosPIDController> trayController = std::make_shared<okapi::AsyncPosPIDController>(
+	std::make_shared<okapi::IntegratedEncoder>(6),
+	std::make_shared<okapi::Motor>(6, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees),
+	okapi::TimeUtilFactory::createDefault(),
+	0.01, 0, 0 // kP, kI, kD tune these
+);
+
+// TrayController tray(6);
 okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 
 okapi::ChassisScales scales
