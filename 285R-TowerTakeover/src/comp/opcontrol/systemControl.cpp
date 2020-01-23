@@ -17,9 +17,11 @@ void trayControl() {
   if(trayButton.changedToPressed()) {
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     if(trayToggle)
-      tray.setState(TrayController::trayStates::down);
+      trayController->setTarget(0);
+      // tray.setState(TrayController::trayStates::down);
     else
-      tray.setState(TrayController::trayStates::up);
+      trayController->setTarget(3100);
+      // tray.setState(TrayController::trayStates::up);
   }
 }
 
@@ -36,7 +38,7 @@ void liftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(tray.coastRollers())
+  if(true) // Fix this
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
   else
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
