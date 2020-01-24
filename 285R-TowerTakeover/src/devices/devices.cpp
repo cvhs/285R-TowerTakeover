@@ -7,7 +7,7 @@ okapi::ControllerButton liftUpButton = okapi::ControllerDigital::L1;
 okapi::ControllerButton liftDownButton = okapi::ControllerDigital::L2;
 okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
-okapi::MotorGroup rollers = MotorGroup({ -11, 15 });
+okapi::MotorGroup rollers = MotorGroup({ -19, 18 });
 TrayController tray(6);
 okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 
