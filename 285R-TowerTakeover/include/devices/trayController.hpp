@@ -13,4 +13,5 @@ class TrayController {
     TrayController(std::shared_ptr<okapi::Motor> imotor);
     void raise();
     void lower();
+    bool coastRollers();
 };

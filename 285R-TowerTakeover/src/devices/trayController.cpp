@@ -24,3 +24,7 @@ void TrayController::lower() {
         if(std::abs(error) < 8) settled = true;
     }
 }
+
+bool TrayController::coastRollers() {
+    return trayMotor->getPosition() > 200;
+}
