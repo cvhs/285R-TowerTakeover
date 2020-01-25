@@ -43,16 +43,19 @@ void TrayController::run() {
         break;
 
         case movingUpFast:
+        std::cout << "Moving Up Fast \n";
         angler->moveVelocity(90);
         if(angler->getPosition() >= 2400) trayState = trayStates::movingUpSlow;
         break;
 
         case movingUpSlow:
-        angler->moveAbsolute(3100, 50);
+        std::cout << "Moving Up Slow \n";
+        angler->moveAbsolute(975, 50);
         if(angler->isStopped()) trayState = trayStates::holding;
         break;
 
         case holding:
+        std::cout << "Holding \n";
         angler->moveVelocity(0);
         break;
 
