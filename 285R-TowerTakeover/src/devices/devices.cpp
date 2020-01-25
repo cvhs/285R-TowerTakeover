@@ -42,5 +42,4 @@ std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMoti
 pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
 okapi::Potentiometer pot = okapi::Potentiometer('B');
 
-bool trayToggle = false;
 bool danIsDriving = false;

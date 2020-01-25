@@ -1,5 +1,6 @@
 #include "devices/devices.hpp"
 #include "systemControl.hpp"
+#include "devices/trayController.hpp"
 
 void driveToggle() {
   if(driverDan.changedToPressed())

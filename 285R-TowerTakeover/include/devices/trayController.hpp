@@ -1,11 +1,15 @@
 #pragma once
 #include "main.h"
 
+extern bool trayToggle;
+
 class TrayController {
     public:
-    double stackLevel;
+    double stackLevel = 900;
     double error;
+    std::shared_ptr<okapi::Motor> trayMotor;
 
+    TrayController(std::shared_ptr<okapi::Motor> imotor);
     void raise();
     void lower();
 };

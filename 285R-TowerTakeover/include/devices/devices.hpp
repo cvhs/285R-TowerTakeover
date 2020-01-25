@@ -1,4 +1,6 @@
+#pragma once
 #include "main.h"
+#include "trayController.hpp"
 
 extern okapi::ChassisScales scales;
 extern std::shared_ptr<okapi::ChassisController> chassis;
