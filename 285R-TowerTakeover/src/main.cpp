@@ -48,6 +48,7 @@ void autonomous()
 
 void opcontrol()
 {
+	pros::Task trayTask(trayControl);
 	while(1)
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
@@ -56,7 +57,7 @@ void opcontrol()
 		
 		driveToggle();
 
-		trayControl();
+		// trayControl();
 		liftControl();
 		rollerControl();
 
