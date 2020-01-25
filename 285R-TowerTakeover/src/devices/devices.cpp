@@ -7,24 +7,10 @@ okapi::ControllerButton liftUpButton = okapi::ControllerDigital::L1;
 okapi::ControllerButton liftDownButton = okapi::ControllerDigital::L2;
 okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
-okapi::MotorGroup rollers = MotorGroup({ -19, 18 });
+okapi::MotorGroup rollers = MotorGroup({ -9, 10 });
 
-// std::shared_ptr<okapi::AsyncPosPIDController> trayController = std::make_shared<okapi::AsyncPosPIDController>(
-// 	std::make_shared<okapi::IntegratedEncoder>(11),
-// 	std::make_shared<okapi::Motor>(11, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees),
-// 	okapi::TimeUtilFactory::createDefault(),
-// 	0.9, 0, 0, // kP, kI, kD tune these
-// 	0, 1,
-// 	std::make_unique<PassthroughFilter>(),
-// 	std::make_shared<okapi::Logger>(
-// 		okapi::TimeUtilFactory::createDefault().getTimer(),
-// 		"/ser/sout",
-// 		okapi::Logger::LogLevel::debug
-// 	)
-// );
 okapi::Motor tray(11, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 
-// TrayController tray(6);
 okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 
 okapi::ChassisScales scales
