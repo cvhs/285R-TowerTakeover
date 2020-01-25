@@ -56,7 +56,7 @@ void liftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(true) // Fix this
+  if(tray.getPosition() > 200) // Fix this
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
   else
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
