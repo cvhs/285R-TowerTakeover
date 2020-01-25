@@ -7,6 +7,7 @@ class TrayController {
     public:
     double stackLevel = 900;
     double error;
+    bool settled;
     std::shared_ptr<okapi::Motor> trayMotor;
 
     TrayController(std::shared_ptr<okapi::Motor> imotor);
