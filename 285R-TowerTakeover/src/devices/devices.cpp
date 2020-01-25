@@ -7,13 +7,20 @@ okapi::ControllerButton liftUpButton = okapi::ControllerDigital::L1;
 okapi::ControllerButton liftDownButton = okapi::ControllerDigital::L2;
 okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
-okapi::MotorGroup rollers = MotorGroup({ -11, 15 });
+okapi::MotorGroup rollers = MotorGroup({ -19, 18 });
 
 std::shared_ptr<okapi::AsyncPosPIDController> trayController = std::make_shared<okapi::AsyncPosPIDController>(
-	std::make_shared<okapi::IntegratedEncoder>(6),
-	std::make_shared<okapi::Motor>(6, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees),
+	std::make_shared<okapi::IntegratedEncoder>(11),
+	std::make_shared<okapi::Motor>(11, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees),
 	okapi::TimeUtilFactory::createDefault(),
-	0.01, 0, 0 // kP, kI, kD tune these
+	0.9, 0, 0, // kP, kI, kD tune these
+	0, 1,
+	std::make_unique<PassthroughFilter>(),
+	std::make_shared<okapi::Logger>(
+		okapi::TimeUtilFactory::createDefault().getTimer(),
+		"/ser/sout",
+		okapi::Logger::LogLevel::debug
+	)
 );
 
 // TrayController tray(6);

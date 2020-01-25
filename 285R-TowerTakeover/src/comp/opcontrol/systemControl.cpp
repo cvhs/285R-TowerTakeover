@@ -16,12 +16,14 @@ void driveToggle() {
 void trayControl() {
   if(trayButton.changedToPressed()) {
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-    if(trayToggle)
+    std::cout << "Toggling tray" << "\n";
+    if(trayToggle) {
       trayController->setTarget(0);
-      // tray.setState(TrayController::trayStates::down);
-    else
+    }
+    else {
       trayController->setTarget(3100);
-      // tray.setState(TrayController::trayStates::up);
+    }
+    trayToggle = !trayToggle;
   }
 }
 

@@ -2,6 +2,13 @@
 #include "comp/comp.hpp"
 
 void initialize() {
+	okapi::Logger::setDefaultLogger(
+		std::make_shared<okapi::Logger>(
+			okapi::TimeUtilFactory::createDefault().getTimer(),
+			"/ser/sout",
+			okapi::Logger::LogLevel::debug
+		)
+	);
 	lineSensor.calibrate();
 	generatePaths();
 }
