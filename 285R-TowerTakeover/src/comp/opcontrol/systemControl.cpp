@@ -20,22 +20,10 @@ void trayControl() {
       rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
       std::cout << "Toggling tray" << "\n";
       if(trayToggle) {
-        bool settled = false;
-        while(!settled) {
-          double error = 0 - tray.getPosition();
-          std::cout << error << "\n";
-          tray.moveVelocity(0.4 * (error));
-          if(std::abs(error) < 8) settled = true;
-        }
+        trayController.lower();
       }
       else {
-        bool settled = false;
-        while(!settled) {
-          double error = 900 - tray.getPosition();
-          std::cout << error << "\n";
-          tray.moveVelocity(0.22 * (error));
-          if(std::abs(error) < 8) settled = true;
-        }
+        trayController.raise();
       }
       trayToggle = !trayToggle;
     }
@@ -55,7 +43,7 @@ void liftControl() {
 }
 
 void rollerBrakeManagement() {
-  if(tray.getPosition() > 200) // Fix this
+  if(true) // Fix this
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
   else
     rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);

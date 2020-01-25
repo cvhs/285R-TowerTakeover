@@ -9,9 +9,19 @@ okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 
 okapi::MotorGroup rollers = MotorGroup({ -5, 8 });
 
-okapi::Motor tray(11, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor lift(
+	13, true, 
+	okapi::AbstractMotor::gearset::red, 
+	okapi::AbstractMotor::encoderUnits::degrees
+);
 
-okapi::Motor lift(13, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
+std::shared_ptr<okapi::Motor> tray = std::make_shared<okapi::Motor>(
+	11, false, 
+	okapi::AbstractMotor::gearset::red, 
+	okapi::AbstractMotor::encoderUnits::degrees
+);
+
+TrayController trayController = TrayController(tray);
 
 okapi::ChassisScales scales
 {
