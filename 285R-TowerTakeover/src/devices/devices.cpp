@@ -10,7 +10,7 @@ okapi::ControllerButton	driverDan = okapi::ControllerDigital::B;
 okapi::MotorGroup rollers = MotorGroup({ -5, 8 });
 
 okapi::Motor lift(
-	13, true, 
+	4, false, 
 	okapi::AbstractMotor::gearset::red, 
 	okapi::AbstractMotor::encoderUnits::degrees
 );
@@ -31,7 +31,7 @@ okapi::ChassisScales scales
 okapi::Controller controller;
 
 std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuilder()
-										.withMotors({ -1, -3 }, { 2, 4 })
+										.withMotors({ -10, -17 }, { 15, 13 })
 										.withDimensions(okapi::AbstractMotor::gearset::green, scales)
 										.build();
 
