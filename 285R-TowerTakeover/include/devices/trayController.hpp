@@ -5,7 +5,12 @@ extern bool trayToggle;
 
 class TrayController {
     public:
-    double stackLevel = 900;
+    const double stackLevel = 900;
+    const double coastLevel = 200;
+    const double kPUp = 0.22;
+    const double kPDown = 0.4;
+    const settleLimit = 8;
+    
     double error;
     bool settled;
     std::shared_ptr<okapi::Motor> trayMotor;
