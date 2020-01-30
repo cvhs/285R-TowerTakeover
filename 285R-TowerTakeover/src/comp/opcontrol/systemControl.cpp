@@ -15,7 +15,11 @@ void driveToggle() {
 }
 
 void trayControl() {
-  if(trayButton.changedToPressed()) {
+  if(trayKillButton.isPressed()) {
+    trayController.state = TrayStates::off;
+    
+    trayIsUp = false;
+  } else if(trayButton.changedToPressed()) {
     if(trayIsUp) {
       trayController.state = TrayStates::down;
     } else {
