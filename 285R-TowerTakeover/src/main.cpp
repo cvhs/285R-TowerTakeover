@@ -48,7 +48,7 @@ void autonomous()
 
 void opcontrol()
 {
-	pros::Task trayTask(trayControl);
+	pros::Task trayTask(trayTaskFn);
 	while(1)
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);

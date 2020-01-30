@@ -14,7 +14,7 @@ void driveToggle() {
           controller.getAnalog(okapi::ControllerAnalog::leftY));
 }
 
-void trayControl() {
+void trayTaskFn() {
   while(1) {
     if(trayButton.changedToPressed()) {
       rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);

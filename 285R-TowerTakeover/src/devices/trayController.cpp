@@ -5,7 +5,7 @@ bool trayToggle = false;
 TrayController::TrayController(std::shared_ptr<okapi::Motor> imotor) :
     trayMotor(imotor) {}
 
-void TrayController::raise(double level = stackLevel) {
+void TrayController::raise(double level) {
     settled = false;
 
     while(!settled) {
@@ -17,7 +17,7 @@ void TrayController::raise(double level = stackLevel) {
     }
 }
 
-void TrayController::lower(double level = 0) {
+void TrayController::lower(double level) {
     settled = true;
 
     while(!settled) {

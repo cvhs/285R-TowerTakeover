@@ -2,7 +2,6 @@
 #include "main.h"
 #include "trayController.hpp"
 
-extern okapi::ChassisScales scales;
 extern std::shared_ptr<okapi::ChassisController> chassis;
 extern std::shared_ptr<okapi::OdomChassisController> autChassis;
 extern std::shared_ptr<okapi::ChassisModel> model;
