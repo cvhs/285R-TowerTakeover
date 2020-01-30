@@ -1,6 +1,6 @@
 #include "trayController.hpp"
 
-bool trayToggle = false;
+bool trayIsUp = false;
 
 TrayController::TrayController(std::shared_ptr<okapi::Motor> imotor) :
     trayMotor(imotor) {}

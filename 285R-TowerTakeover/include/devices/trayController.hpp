@@ -1,7 +1,7 @@
 #pragma once
 #include "main.h"
 
-extern bool trayToggle;
+extern bool trayIsUp;
 
 class TrayController {
     public:
