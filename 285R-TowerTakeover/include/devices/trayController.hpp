@@ -3,6 +3,8 @@
 
 extern bool trayIsUp;
 
+enum class TrayStates {up, down, slightlyUp, holding, off};
+
 class TrayController {
     public:
     static constexpr double stackLevel = 900;
