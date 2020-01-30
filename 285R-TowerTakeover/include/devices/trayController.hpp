@@ -12,6 +12,7 @@ class TrayController {
     const double kPUp = 0.22;
     const double kPDown = 0.4;
     const double settleLimit = 8;
+    TrayStates state;
 
     double error;
     bool settled;
@@ -21,4 +22,6 @@ class TrayController {
     void raise(double level = stackLevel);
     void lower(double level = 0);
     bool coastRollers();
+    TrayStates getState();
+    void setState(TrayStates newState);
 };
