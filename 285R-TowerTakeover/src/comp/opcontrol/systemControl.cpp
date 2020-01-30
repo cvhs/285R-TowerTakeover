@@ -31,14 +31,17 @@ void trayTaskFn() {
     switch(trayController.state) {
       case TrayStates::up:
       trayController.raise();
+      trayController.state = TrayStates::holding;
       break;
 
       case TrayStates::down:
       trayController.lower();
+      trayController.state = TrayStates::holding;
       break;
 
       case TrayStates::slightlyUp:
       trayController.raise(200);  // TODO: tune this value if needed
+      trayController.state = TrayStates::holding;
       break;
 
       case TrayStates::holding:
