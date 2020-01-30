@@ -16,15 +16,32 @@ void driveToggle() {
 
 void trayTaskFn() {
   while(1) {
-    if(trayButton.changedToPressed()) {
-      std::cout << "Toggling tray" << "\n";
-      if(trayIsUp) {
-        trayController.lower();
-      }
-      else {
-        trayController.raise();
-      }
-      trayIsUp = !trayIsUp;
+    switch(trayController.state) {
+      case TrayStates::up:
+      trayController.raise();
+      break;
+
+      case TrayStates::down:
+      trayController.lower();
+      break;
+
+      case TrayStates::slightlyUp:
+      trayController.raise(200);  // TODO: tune this value if needed
+      break;
+
+      case TrayStates::holding:
+      trayController.trayMotor->setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+      trayController.trayMotor->moveVelocity(0);
+      break;
+
+      case TrayStates::off:
+      trayController.trayMotor->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+      trayController.trayMotor->moveVoltage(0);
+      break;
+
+      default:
+      std::cout << "Invalid TrayState passed \n";
+      break; 
     }
   }
 }

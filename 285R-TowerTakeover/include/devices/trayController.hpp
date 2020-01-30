@@ -12,8 +12,8 @@ class TrayController {
     const double kPUp = 0.22;
     const double kPDown = 0.4;
     const double settleLimit = 8;
-    TrayStates state;
 
+    TrayStates state;
     double error;
     bool settled;
     std::shared_ptr<okapi::Motor> trayMotor;

@@ -4,7 +4,7 @@ bool trayIsUp = false;
 
 TrayController::TrayController(std::shared_ptr<okapi::Motor> imotor) :
     trayMotor(imotor) {
-        state = TrayStates::off;
+    state = TrayStates::off;
 }
 
 void TrayController::raise(double level) {
