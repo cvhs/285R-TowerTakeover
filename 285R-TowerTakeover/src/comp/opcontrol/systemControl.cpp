@@ -14,6 +14,18 @@ void driveToggle() {
           controller.getAnalog(okapi::ControllerAnalog::leftY));
 }
 
+void trayControl() {
+  if(trayButton.changedToPressed()) {
+    if(trayIsUp) {
+      trayController.state = TrayStates::down;
+    } else {
+      trayController.state = TrayStates::up;
+    }
+
+    trayIsUp = !trayIsUp;
+  }
+}
+
 void trayTaskFn() {
   while(1) {
     switch(trayController.state) {
