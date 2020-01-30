@@ -2,15 +2,10 @@
 #include "comp/comp.hpp"
 
 void initialize() {
-	okapi::Logger::setDefaultLogger(
-		std::make_shared<okapi::Logger>(
-			okapi::TimeUtilFactory::createDefault().getTimer(),
-			"/ser/sout",
-			okapi::Logger::LogLevel::debug
-		)
-	);
 	lineSensor.calibrate();
 	generatePaths();
+	
+	pros::Task trayTask(trayTaskFn);
 }
 
 void disabled() {}
@@ -48,7 +43,6 @@ void autonomous()
 
 void opcontrol()
 {
-	pros::Task trayTask(trayTaskFn);
 	while(1)
 	{
 		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
@@ -57,7 +51,7 @@ void opcontrol()
 		
 		driveToggle();
 
-		// trayControl();
+		trayControl();
 		liftControl();
 		rollerControl();
 
