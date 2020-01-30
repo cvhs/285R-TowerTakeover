@@ -62,6 +62,8 @@ void trayTaskFn() {
       std::cout << "Invalid TrayState passed \n";
       break; 
     }
+
+    pros::delay(20);
   }
 }
 
