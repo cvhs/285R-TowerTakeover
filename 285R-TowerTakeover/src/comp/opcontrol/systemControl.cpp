@@ -15,18 +15,22 @@ void driveToggle() {
 }
 
 void trayControl() {
-  if(trayKillButton.isPressed()) {
-    trayController.state = TrayStates::off;
+  // std::cout << "trayIsUp: " << trayIsUp << "\n";
+  // if(trayKillButton.isPressed()) {
+  //   trayController.state = TrayStates::off;
     
-    trayIsUp = false;
-  } else if(trayButton.changedToPressed()) {
+  //   trayIsUp = false;
+  // } else 
+  if(trayButton.changedToPressed()) {
     if(trayIsUp) {
+      std::cout << "Lowering tray \n";
       trayController.state = TrayStates::down;
+      trayIsUp = false;
     } else {
+      std::cout << "Raising tray \n";
       trayController.state = TrayStates::up;
+      trayIsUp = true;
     }
-
-    trayIsUp = !trayIsUp;
   }
 }
 
@@ -35,11 +39,13 @@ void trayTaskFn() {
     switch(trayController.state) {
       case TrayStates::up:
       trayController.raise();
+      std::cout << "Tray Raised \n";
       trayController.state = TrayStates::holding;
       break;
 
       case TrayStates::down:
       trayController.lower();
+      std::cout << "Tray Lowered \n";
       trayController.state = TrayStates::holding;
       break;
 
@@ -69,7 +75,7 @@ void trayTaskFn() {
 
 void liftControl() {
   if(liftUpButton.isPressed()) {
-    lift.moveVelocity(100);
+    lift.moveVelocity(150);
   }
   else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-70);
@@ -90,7 +96,7 @@ void rollerControl() {
   if(intakeButton.isPressed())
     rollers.moveVelocity(200);
   else if(outtakeButton.isPressed())
-    rollers.moveVelocity(-120);
+    rollers.moveVelocity(-150);
   else
     rollers.moveVelocity(0);
 }

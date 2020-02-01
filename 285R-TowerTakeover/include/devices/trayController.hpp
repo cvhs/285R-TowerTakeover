@@ -7,7 +7,7 @@ enum class TrayStates {up, down, slightlyUp, holding, off};
 
 class TrayController {
     public:
-    static constexpr double stackLevel = 900;
+    static constexpr double stackLevel = 930;
     const double coastLevel = 200;
     const double kPUp = 0.22;
     const double kPDown = 0.4;
