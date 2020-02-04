@@ -54,7 +54,7 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg)
 										.buildOdometry();
 
-std::shared_ptr<okapi::ChassisModel> model = std::dynamic_pointer_cast<okapi::ChassisModel>(chassis->getModel());
+std::shared_ptr<okapi::ChassisModel> model = std::static_pointer_cast<okapi::ChassisModel>(chassis->getModel());
 
 std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMotionProfileControllerBuilder()
 										.withOutput(chassis)
