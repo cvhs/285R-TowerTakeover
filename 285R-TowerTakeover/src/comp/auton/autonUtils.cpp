@@ -59,7 +59,7 @@ void generatePaths() {
 
 void stack() {
   // Push bottom cube low enough that it touches ground
-  outtakeToStack();
+  // outtakeToStack();
 
   trayController.state = TrayStates::up;
   rollers.moveVelocity(-75);
