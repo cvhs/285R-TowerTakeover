@@ -61,11 +61,12 @@ void stack() {
   // Push bottom cube low enough that it touches ground
   outtakeToStack();
 
-  // tray.setState(TrayController::trayStates::down);
+  trayController.state = TrayStates::up;
   rollers.moveVelocity(-75);
   pros::delay(200);
   autChassis->moveDistance(-1_ft);
   rollers.moveVelocity(0);
+  trayController.state = TrayStates::down;
 }
 
 void outtakeToStack() {
