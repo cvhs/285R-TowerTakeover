@@ -93,6 +93,8 @@ void rotateIMU(double angle) {
 
     double output = kP * error + kD * dError;
     model.rotate(output);
+
+    settled = error < 1 && dError < 3;
   }
 }
 
