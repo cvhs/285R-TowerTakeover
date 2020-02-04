@@ -78,6 +78,24 @@ void outtakeToStack() {
   rollers.moveVelocity(0);
 }
 
+void rotateIMU(double angle) {
+  const double kP = 0.2;              // TUNE
+  const double kD = 0;
+  double target = imu.get_rotation() + angle;
+  bool settled = false;
+  double error = angle;
+  double lastError = error;
+  double dError = 0;
+
+  while(!settled) {
+    error = target - imu.get_rotation();
+    dError = error - lastError
+
+    double output = kP * error + kD * dError;
+    model.rotate(output);
+  }
+}
+
 void deploy() {
   // TODO: actually figure this out
 }
