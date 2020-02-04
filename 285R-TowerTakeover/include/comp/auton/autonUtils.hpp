@@ -1,7 +1,7 @@
 #pragma once
 
-void stack();
-void outtakeToStack();
+extern void stack();
+extern void outtakeToStack();
 
 extern void deploy();
 

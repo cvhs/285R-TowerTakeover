@@ -16,6 +16,7 @@ const int blDrivePort = -9;
 const int flDrivePort = -17;
 const int brDrivePort = 15;
 const int frDrivePort = 13;
+const int imuPort = 20;
 
 const okapi::ChassisScales scales
 {
@@ -54,7 +55,7 @@ std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControl
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg)
 										.buildOdometry();
 
-std::shared_ptr<okapi::ChassisModel> model = std::static_pointer_cast<okapi::ChassisModel>(chassis->getModel());
+std::shared_ptr<okapi::ChassisModel> model = std::static_pointer_cast<okapi::ChassisModel>(autChassis->getModel());
 
 std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMotionProfileControllerBuilder()
 										.withOutput(chassis)
@@ -63,5 +64,6 @@ std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMoti
 
 pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
 okapi::Potentiometer pot = okapi::Potentiometer('B');
+pros::Imu imu = pros::Imu(imuPort);
 
 bool danIsDriving = false;
