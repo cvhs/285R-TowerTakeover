@@ -60,13 +60,8 @@ void generatePaths() {
 void stack() {
   // Push bottom cube low enough that it touches ground
   outtakeToStack();
-  rollers.moveRelative(-500, 100);
-  rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
 
-  // Stack then back up
-  tray.setState(TrayController::trayStates::up);
-  while(tray.getState() == TrayController::trayStates::up){}
-  tray.setState(TrayController::trayStates::down);
+  // tray.setState(TrayController::trayStates::down);
   rollers.moveVelocity(-75);
   pros::delay(200);
   autChassis->moveDistance(-1_ft);

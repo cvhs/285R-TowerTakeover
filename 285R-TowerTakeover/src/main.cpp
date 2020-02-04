@@ -4,6 +4,8 @@
 void initialize() {
 	lineSensor.calibrate();
 	generatePaths();
+	
+	pros::Task trayTask(trayTaskFn);
 }
 
 void disabled() {}

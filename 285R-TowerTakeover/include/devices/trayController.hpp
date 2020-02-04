@@ -1,38 +1,27 @@
 #pragma once
 #include "main.h"
-#include <set>
 
-extern bool trayToggle;
+extern bool trayIsUp;
 
-class TrayController
-{
-public:
+enum class TrayStates {up, down, slightlyUp, holding, off};
 
-  enum trayStates
-  {
-    off,
-    holding,
-    up,
-    movingUpFast,
-    movingUpSlow,
-    down
-  };
+class TrayController {
+    public:
+    static constexpr double stackLevel = 930;
+    const double coastLevel = 200;
+    const double kPUp = 0.22;
+    const double kPDown = 0.4;
+    const double settleLimit = 8;
 
-  std::array<trayStates, 4> rollerCoastStates;
+    TrayStates state;
+    double error;
+    bool settled;
+    std::shared_ptr<okapi::Motor> trayMotor;
 
-  Motor* angler = nullptr;
-
-  pros::Task task;
-
-  trayStates trayState = off;
-  bool disabled = false;
-
-  TrayController(int);
-
-  void setState(trayStates);
-  trayStates getState();
-  bool coastRollers();
-
-  void run();
-  static void taskFnc(void*);
+    TrayController(std::shared_ptr<okapi::Motor> imotor);
+    void raise(double level = stackLevel);
+    void lower(double level = 0);
+    bool coastRollers();
+    TrayStates getState();
+    void setState(TrayStates newState);
 };

@@ -1,77 +1,37 @@
 #include "trayController.hpp"
 
-TrayController::TrayController(int iangler) :
-angler(new okapi::Motor(iangler)), task(taskFnc, this, "Tray Controller") {
-  angler->setGearing(okapi::AbstractMotor::gearset::red);
-  rollerCoastStates = {holding, up, movingUpFast, movingUpSlow};
+bool trayIsUp = false;
+
+TrayController::TrayController(std::shared_ptr<okapi::Motor> imotor) :
+    trayMotor(imotor) {
+    state = TrayStates::off;
 }
 
-void TrayController::setState(trayStates state) {trayState = state;}
+void TrayController::raise(double level) {
+    settled = false;
 
-TrayController::trayStates TrayController::getState() {return trayState;}
+    while(!settled) {
+        double current = trayMotor->getPosition();
+        double error = level - current;
+        // std::cout << error << "\n";
+        trayMotor->moveVelocity(kPUp * (error));
+
+        settled = (current > level - 100) && (trayMotor->getActualVelocity() < 5);
+    }
+}
+
+void TrayController::lower(double level) {
+    settled = false;
+
+    while(!settled) {
+        double error = level - trayMotor->getPosition();
+        // std::cout << error << "\n";
+        trayMotor->moveVelocity(kPDown * (error));
+
+        if(std::abs(error) < settleLimit) settled = true;
+    }
+}
 
 bool TrayController::coastRollers() {
-  bool coast = false;
-  for(int i = 0; i < 4; i++) {
-    if(trayState == rollerCoastStates[i]) {
-      coast = true;
-      break;
-    }
-  }
-
-  return coast;
-}
-
-void TrayController::run() { 
-  while(true)
-  {
-    angler->setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-
-    if(!disabled)
-    {
-      switch(trayState)
-      {
-        case up:
-        trayState = trayStates::movingUpFast;
-        break;
-
-        case down:
-        angler->moveAbsolute(0, 80);
-        pros::delay(2000);
-        trayState = trayStates::off;
-        trayToggle = false;
-        break;
-
-        case movingUpFast:
-        std::cout << "Moving Up Fast \n";
-        angler->moveVelocity(90);
-        if(angler->getPosition() >= 2400) trayState = trayStates::movingUpSlow;
-        break;
-
-        case movingUpSlow:
-        std::cout << "Moving Up Slow \n";
-        angler->moveAbsolute(975, 50);
-        if(angler->isStopped()) trayState = trayStates::holding;
-        break;
-
-        case holding:
-        std::cout << "Holding \n";
-        angler->moveVelocity(0);
-        break;
-
-        case off:
-        angler->moveVoltage(0);
-        break;
-      }
-    }
-    pros::delay(10);
-  }
-}
-
-
-void TrayController::taskFnc(void* input)
-{
-  pros::delay(500);
-  TrayController* that = static_cast<TrayController*>(input);
-  that->run();
+    return trayMotor->getPosition() > coastLevel;
 }
