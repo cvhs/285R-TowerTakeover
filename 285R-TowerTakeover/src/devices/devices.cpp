@@ -12,11 +12,11 @@ const int rightRollerPort = -5;
 const int leftRollerPort = 8;
 const int liftPort = 4;
 const int trayPort = 11;
-const int blDrivePort = -9;
-const int flDrivePort = -17;
-const int brDrivePort = 15;
-const int frDrivePort = 13;
-const int imuPort = 20;
+const int blDrivePort = -9; //15
+const int flDrivePort = -17; //13
+const int brDrivePort = 18; //9
+const int frDrivePort = 13; //17
+const int imuPort = 19;
 
 const okapi::ChassisScales scales
 {
@@ -51,19 +51,19 @@ std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuil
 std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControllerBuilder()
 										.withMotors({blDrivePort, flDrivePort}, {brDrivePort, frDrivePort})
 										.withDimensions(okapi::AbstractMotor::gearset::green, scales)
-										.withMaxVelocity(75)
+										.withMaxVelocity(90)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg)
 										.buildOdometry();
 
 std::shared_ptr<okapi::ChassisModel> model = std::static_pointer_cast<okapi::ChassisModel>(autChassis->getModel());
 
 std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMotionProfileControllerBuilder()
-										.withOutput(chassis)
+										.withOutput(autChassis)
 										.withLimits({1.0, 2.0, 10.0}) // TODO: tune these
 										.buildMotionProfileController();
 
-pros::ADILineSensor lineSensor = pros::ADILineSensor('H');
-okapi::Potentiometer pot = okapi::Potentiometer('B');
+pros::ADILineSensor lineSensor = pros::ADILineSensor('A');
+okapi::Potentiometer pot = okapi::Potentiometer('H');
 pros::Imu imu = pros::Imu(imuPort);
 
 bool danIsDriving = false;

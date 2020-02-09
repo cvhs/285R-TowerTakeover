@@ -10,3 +10,15 @@ void oneCube() {
   // pros::delay(1000);
   // tray.setState(TrayController::trayStates::down);
 }
+
+void twoCube() {
+  rollers.moveVelocity(200);
+  autChassis->moveDistance(2_ft);
+  rollers.moveVelocity(0);
+  autChassis->moveDistance(-1_ft);
+  autChassis->turnAngle(120_deg);
+  rollers.moveVelocity(-100);
+  rollers.moveVelocity(0);
+  autChassis->moveDistance(-1_ft);
+  // stack();
+}

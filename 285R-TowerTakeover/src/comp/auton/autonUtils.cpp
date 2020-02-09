@@ -20,7 +20,7 @@ void generatePaths() {
     // 4 feet (for 3 cube row or 4 cube row)
     profiler->generatePath(
       {{0_ft, 0_ft, 0_deg},
-      {4_ft, 0_ft, 0_deg}},
+      {6.5_ft, 0_ft, 0_deg}},
       "dx=4 dy=0"
     );
     profiler->storePath("/usd/paths/", "dx=4 dy=0");
@@ -50,7 +50,7 @@ void generatePaths() {
     // 2.5 feet (for reversing after 4 cube row to stack)
     profiler->generatePath(
       {{  0_ft, 0_ft, 0_deg},
-      {2.5_ft, 0_ft, 0_deg}},
+      {3.5_ft, 0_ft, 0_deg}},
       "dx=2.5 dy=0"
     );
     profiler->storePath("/usd/paths/", "dx=2.5 dy=0");
@@ -60,13 +60,16 @@ void generatePaths() {
 void stack() {
   // Push bottom cube low enough that it touches ground
   // outtakeToStack();
-
+  rollers.moveRelative(-300, 60);
   trayController.state = TrayStates::up;
-  rollers.moveVelocity(-75);
+  while(!trayController.settled) {
+    pros::delay(10);
+  }
+  rollers.moveVelocity(-60);
   pros::delay(200);
+  trayController.state = TrayStates::down;
   autChassis->moveDistance(-1_ft);
   rollers.moveVelocity(0);
-  trayController.state = TrayStates::down;
 }
 
 void outtakeToStack() {
@@ -79,25 +82,48 @@ void outtakeToStack() {
 }
 
 void rotateIMU(double angle) {
-  const double kP = 0.2;              // TUNE
+  const double kP = 0.15;              // TUNE
   const double kD = 0;
-  double target = imu.get_rotation() + angle;
+  double target = imu.get_yaw() + angle;
   bool settled = false;
   double error = angle;
   double lastError = error;
   double dError = 0;
 
   while(!settled) {
-    error = target - imu.get_rotation();
-    dError = error - lastError
+    error = std::fmod(target - imu.get_yaw(), 360);
+    dError = error - lastError;
 
     double output = kP * error + kD * dError;
-    model.rotate(output);
+    model->rotate(output);
+    std::cout << error << "; " << output << "\n";
 
-    settled = error < 1 && dError < 3;
+    settled = std::abs(error) < 1 && dError < 3;
   }
+
+  autChassis->stop();
 }
 
 void deploy() {
   // TODO: actually figure this out
+  lift.moveAbsolute(420, 100);
+  rollers.moveVelocity(-100);
+  while(lift.getPosition() < 370) {
+    pros::delay(10);
+  }
+
+  pros::Task lowerLift([] {
+    while(pot.get() < 3900) {
+      lift.moveVelocity(-100);
+    }
+    lift.moveVelocity(0);
+  });
+  rollers.moveVelocity(0);
+  
+  while(pot.get() < 3400) {
+    pros::delay(10);
+  }
+
+  // rollers.moveVelocity(200);
+  // pros::delay
 }
