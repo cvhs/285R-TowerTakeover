@@ -17,16 +17,11 @@ void competition_initialize() {}
 void autonomous()
 {
 	deploy();
-	// pros::delay(1000);
-	// twoCube();
 	oneCube();
 	trayController.state = TrayStates::slightlyUp;
 	trayIsUp = true;
 	pros::delay(1000);
 	trayController.state = TrayStates::down;
-	// autChassis->moveDistance(1_ft);
-	// rollers.moveVelocity(-60);
-	// autChassis->moveDistance(-1_ft);
 	// redSmall5Cube();
 
 

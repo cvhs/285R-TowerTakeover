@@ -6,9 +6,6 @@ void oneCube() {
   autChassis->moveDistance(-1.5_ft);
   pros::delay(800);
   autChassis->moveDistance(1.5_ft);
-  // tray.setState(TrayController::trayStates::up);
-  // pros::delay(1000);
-  // tray.setState(TrayController::trayStates::down);
 }
 
 void twoCube() {
@@ -20,5 +17,4 @@ void twoCube() {
   rollers.moveVelocity(-100);
   rollers.moveVelocity(0);
   autChassis->moveDistance(-1_ft);
-  // stack();
 }
