@@ -24,5 +24,6 @@ extern okapi::Controller controller;
 
 extern pros::ADILineSensor lineSensor;
 extern okapi::Potentiometer pot;
+extern pros::Imu imu;
 
 extern bool danIsDriving;

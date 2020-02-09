@@ -12,14 +12,15 @@ void redSmall5Cube() {
   profiler->waitUntilSettled();
 
   // Stop rollers and move back
-  rollers.moveVelocity(0);
   profiler->setTarget("dx=2.5 dy=0", true);
+  pros::delay(1000);
+  rollers.moveVelocity(0);
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
-  autChassis->setState({0_ft, 0_ft, 0_deg});
-  autChassis->turnToAngle(135_deg);
-  autChassis->moveDistance(2_ft);
+  // autChassis->setState({0_ft, 0_ft, 0_deg});
+  autChassis->turnAngle(-135_deg);
+  autChassis->moveDistance(1_ft);
 
   stack();
 }
@@ -34,14 +35,18 @@ void blueSmall5Cube() {
   profiler->waitUntilSettled();
 
   // Stop rollers and move back
-  rollers.moveVelocity(0);
   profiler->setTarget("dx=2.5 dy=0", true);
+  pros::delay(1000);
+  rollers.moveVelocity(0);
+  // outtakeToStack();
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
   autChassis->setState({0_ft, 0_ft, 0_deg});
-  autChassis->turnToAngle(225_deg);
-  autChassis->moveDistance(2_ft);
+  autChassis->turnToAngle(125_deg);
+  autChassis->moveDistance(1_ft);
+  // autChassis->turnAngle(135_deg);
+  // autChassis->moveDistance(1_ft);
 
   stack();
 }

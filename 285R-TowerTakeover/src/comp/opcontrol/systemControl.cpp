@@ -80,8 +80,11 @@ void liftControl() {
   else if(liftDownButton.isPressed()) {
     lift.moveVelocity(-70);
   }
-  else {
+  else if(pot.get() < 3400) {
     lift.moveVelocity(0);
+  }
+  else {
+    lift.moveVoltage(0);
   }
 }
 
