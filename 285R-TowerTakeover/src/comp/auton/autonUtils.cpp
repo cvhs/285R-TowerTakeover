@@ -88,11 +88,10 @@ void rotateIMU(double angle) {
   bool settled = false;
   double error = angle;
   double lastError = error;
-  double dError = 0;
 
   while(!settled) {
     error = std::fmod(target - imu.get_yaw(), 360);
-    dError = error - lastError;
+    double dError = error - lastError;
 
     double output = kP * error + kD * dError;
     model->rotate(output);
