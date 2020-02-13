@@ -3,6 +3,7 @@
 #include "autonUtils.hpp"
 
 void oneCube() {
+  deploy();
   autChassis->moveDistance(-1.5_ft);
   pros::delay(800);
   autChassis->moveDistance(1.5_ft);

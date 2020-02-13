@@ -65,5 +65,7 @@ std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMoti
 pros::ADILineSensor lineSensor = pros::ADILineSensor('A');
 okapi::Potentiometer pot = okapi::Potentiometer('H');
 pros::Imu imu = pros::Imu(imuPort);
+pros::ADIDigitalIn leftSwitch = pros::ADIDigitalIn('B');
+pros::ADIDigitalIn rightSwitch = pros::ADIDigitalIn('F');
 
 bool danIsDriving = false;

@@ -1,6 +1,8 @@
 #include "devices/devices.hpp"
 #include "comp/comp.hpp"
 
+pros::Task autonSelectorTask;
+
 void initialize() {
 	lineSensor.calibrate();
 	// imu.reset();
@@ -8,6 +10,7 @@ void initialize() {
 	// pros::delay(2000);
 	
 	pros::Task trayTask(trayTaskFn);
+	autonSelectorTask = pros::Task(autonSelectorFn, "autonSelector");
 }
 
 void disabled() {}
@@ -16,41 +19,11 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	deploy();
-	oneCube();
-	trayController.state = TrayStates::slightlyUp;
-	trayIsUp = true;
-	pros::delay(1000);
-	trayController.state = TrayStates::down;
-	// redSmall5Cube();
-
-
-
-	// while(lineSensor.get_value() == 0){}
-	// int val = pot.get();
-	// int aut = val <= 1023 ? 0 : val <= 2047 ? 1 : val <= 3071 ? 2 : 3;
-
-	// rollers.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
-
-	// switch(aut) {
-	// 	case 0: // red
-	// 	// red5CubesCartesian();
-	// 	break;
-
-	// 	case 1: // blue
-	// 	// blue5CubesCartesian();
-	// 	break;
-
-	// 	case 2: // one cube
-	// 	// oneCube();
-	// 	break;
-
-	// 	case 3: // no aut
-	// 	break;
-
-	// 	default:
-	// 	break;
-	// }
+	runAuton();
+	// trayController.state = TrayStates::slightlyUp;
+	// trayIsUp = true;
+	// pros::delay(1000);
+	// trayController.state = TrayStates::down;
 }
 
 void opcontrol()

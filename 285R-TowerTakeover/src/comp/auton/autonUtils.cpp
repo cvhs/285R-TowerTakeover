@@ -1,5 +1,7 @@
 #include "devices/devices.hpp"
 #include "autonUtils.hpp"
+#include "smallZone.hpp"
+#include "otherAuts.hpp"
 
 bool pathLoaded(std::string pathID) {
   std::vector<std::string> paths = profiler->getPaths();
@@ -125,4 +127,63 @@ void deploy() {
 
   // rollers.moveVelocity(200);
   // pros::delay
+}
+
+int autonSelected = 0;
+
+void autonSelectorFn() {
+  pros::lcd::initialize();
+
+  while(true) {
+    if(leftSwitch.get_new_press() && autonSelected > 0) {
+      autonSelected--;
+    } else if(rightSwitch.get_new_press() && autonSelected < 3) {
+      autonSelected++;
+    }
+
+    switch(autonSelected) {
+      case 0:
+      pros::lcd::print(7, "NO AUTON");
+      break;
+
+      case 1:
+      pros::lcd::print(7, "One Cube");
+      break;
+
+      case 2:
+      pros::lcd::print(7, "RED SMALL 5 Cube");
+      break;
+
+      case 3:
+      pros::lcd::print(7, "BLUE SMALL 5 Cube");
+      break;
+
+      default:
+      pros::lcd::print(7, "INVALID AUTON");
+      break;
+    }
+    pros::delay(20);
+  }
+}
+
+void runAuton() {
+  switch(autonSelected) {
+    case 0:
+    break;
+
+    case 1:
+    oneCube();
+    break;
+
+    case 2:
+    redSmall5Cube();
+    break;
+
+    case 3:
+    blueSmall5Cube();
+    break;
+
+    default:
+    break;
+  }
 }
