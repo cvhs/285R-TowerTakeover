@@ -2,7 +2,7 @@
 
 extern void stack();
 extern void outtakeToStack();
-extern void rotateIMU(double angle);
+extern void imuTurn(double degrees);
 extern void deploy();
 
 bool pathsLoaded();

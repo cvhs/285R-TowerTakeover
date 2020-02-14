@@ -6,7 +6,9 @@ void initialize() {
 	lineSensor.calibrate();
 	// imu.reset();
 	generatePaths();
-	// pros::delay(2000);
+	// while(imu.is_calibrating()) {
+	// 	pros::delay(10);
+	// }
 	
 	pros::Task trayTask(trayTaskFn);
 	pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
@@ -18,6 +20,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
+	// imuTurn(90);
 	runAuton();
 	// trayController.state = TrayStates::slightlyUp;
 	// trayIsUp = true;

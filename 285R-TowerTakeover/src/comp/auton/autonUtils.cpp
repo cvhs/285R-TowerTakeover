@@ -23,7 +23,7 @@ void generatePaths() {
     // 4 feet (for 3 cube row or 4 cube row)
     profiler->generatePath(
       {{0_ft, 0_ft, 0_deg},
-      {6.5_ft, 0_ft, 0_deg}},
+      {8_ft, 0_ft, 0_deg}},
       "dx=4 dy=0"
     );
     profiler->storePath("/usd/paths/", "dx=4 dy=0");
@@ -63,13 +63,13 @@ void generatePaths() {
 void stack() {
   // Push bottom cube low enough that it touches ground
   // outtakeToStack();
-  rollers.moveRelative(-300, 60);
+  rollers.moveRelative(-650, 60);
   trayController.state = TrayStates::up;
   while(!trayController.settled) {
     pros::delay(10);
   }
   rollers.moveVelocity(-60);
-  pros::delay(200);
+  pros::delay(400);
   trayController.state = TrayStates::down;
   autChassis->moveDistance(-1_ft);
   rollers.moveVelocity(0);
@@ -84,26 +84,65 @@ void outtakeToStack() {
   rollers.moveVelocity(0);
 }
 
-void rotateIMU(double angle) {
-  const double kP = 0.15;              // TUNE
-  const double kD = 0;
-  double target = imu.get_yaw() + angle;
-  bool settled = false;
-  double error = angle;
-  double lastError = error;
+void imuTurn(double degrees) {
+  const double kP = 0.03;
+  const double kD = 0.135;
+  model->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
 
-  while(!settled) {
-    error = std::fmod(target - imu.get_yaw(), 360);
-    double dError = error - lastError;
+  double initial = imu.get_heading();
+  double final = degrees;
 
-    double output = kP * error + kD * dError;
-    model->rotate(output);
-    std::cout << error << "; " << output << "\n";
+  double sensorVal = initial;
+  double target = final;
 
-    settled = std::abs(error) < 1 && dError < 3;
+  double delta = std::abs(final - initial);
+
+  if(delta > 180) {
+    if(final > 180) {
+      target = final - 360;
+    }
+
+    if(initial > 180) {
+      sensorVal = initial - 360;
+    }
   }
 
-  autChassis->stop();
+  double error = target - sensorVal;
+  double lastError = error;
+
+  bool settled = false;
+  std::cout << "Target: " << target << std::endl;
+  while(!settled) {
+    sensorVal = imu.get_heading();
+
+    if(delta > 180) {
+      if(sensorVal > 180) {
+        sensorVal -= 360;
+      }
+    }
+
+
+    error = target - sensorVal;
+    double dError = error - lastError;
+
+    std::cout << "SensorVal: " << sensorVal << std::endl;
+    std::cout << "dError: " << dError << std::endl;
+
+    double p = kP * error;
+    double d = kD * dError;
+
+    double output = p + d;
+
+    model->rotate(-output);
+
+    lastError = error;
+    
+    settled = std::abs(error) < 1 && std::abs(dError) < 0.3;
+
+    pros::delay(20);
+  }
+
+  model->rotate(0);
 }
 
 void deploy() {
@@ -130,7 +169,7 @@ void deploy() {
   // pros::delay
 }
 
-int autonSelected = 4;
+int autonSelected = 2;
 
 void autonSelectorFn() {
   pros::lcd::initialize();

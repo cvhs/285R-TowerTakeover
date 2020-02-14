@@ -20,7 +20,7 @@ void redSmall5Cube() {
   // Turn to goal zone and approach
   // autChassis->setState({0_ft, 0_ft, 0_deg});
   autChassis->turnAngle(-135_deg);
-  autChassis->moveDistance(1_ft);
+  autChassis->moveDistance(1.5_ft);
 
   stack();
 }
