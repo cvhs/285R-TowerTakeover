@@ -51,7 +51,7 @@ std::shared_ptr<okapi::ChassisController> chassis = okapi::ChassisControllerBuil
 std::shared_ptr<okapi::OdomChassisController> autChassis = okapi::ChassisControllerBuilder()
 										.withMotors({blDrivePort, flDrivePort}, {brDrivePort, frDrivePort})
 										.withDimensions(okapi::AbstractMotor::gearset::green, scales)
-										.withMaxVelocity(90)
+										.withMaxVelocity(80)
 										.withOdometry(okapi::StateMode::FRAME_TRANSFORMATION, 0_mm, 0_deg)
 										.buildOdometry();
 
@@ -62,7 +62,7 @@ std::shared_ptr<okapi::AsyncMotionProfileController> profiler = okapi::AsyncMoti
 										.withLimits({1.0, 2.0, 10.0}) // TODO: tune these
 										.buildMotionProfileController();
 
-pros::ADILineSensor lineSensor = pros::ADILineSensor('A');
+pros::ADILineSensor lineSensor = pros::ADILineSensor('C');
 okapi::Potentiometer pot = okapi::Potentiometer('H');
 pros::Imu imu = pros::Imu(imuPort);
 pros::ADIDigitalIn leftSwitch = pros::ADIDigitalIn('B');

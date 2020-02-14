@@ -1,6 +1,7 @@
 #include "devices/devices.hpp"
 #include "autonUtils.hpp"
 #include "smallZone.hpp"
+#include "bigZone.hpp"
 #include "otherAuts.hpp"
 
 bool pathLoaded(std::string pathID) {
@@ -129,7 +130,7 @@ void deploy() {
   // pros::delay
 }
 
-int autonSelected = 0;
+int autonSelected = 4;
 
 void autonSelectorFn() {
   pros::lcd::initialize();
@@ -158,6 +159,14 @@ void autonSelectorFn() {
       pros::lcd::print(7, "BLUE SMALL 5 Cube");
       break;
 
+      case 4:
+      pros::lcd::print(7, "RED BIG 3 Cube");
+      break;
+
+      case 5:
+      pros::lcd::print(7, "BLUE BIG 3 Cube");
+      break;
+
       default:
       pros::lcd::print(7, "INVALID AUTON");
       break;
@@ -181,6 +190,14 @@ void runAuton() {
 
     case 3:
     blueSmall5Cube();
+    break;
+
+    case 4:
+    redBig3Cube();
+    break;
+
+    case 5:
+    blueBig3Cube();
     break;
 
     default:
