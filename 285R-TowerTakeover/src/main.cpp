@@ -1,7 +1,6 @@
 #include "devices/devices.hpp"
 #include "comp/comp.hpp"
 
-pros::Task autonSelectorTask;
 
 void initialize() {
 	lineSensor.calibrate();
@@ -10,7 +9,7 @@ void initialize() {
 	// pros::delay(2000);
 	
 	pros::Task trayTask(trayTaskFn);
-	autonSelectorTask = pros::Task(autonSelectorFn, "autonSelector");
+	pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
 }
 
 void disabled() {}
