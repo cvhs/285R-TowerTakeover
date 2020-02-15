@@ -1,3 +1,5 @@
+#!C:/Windows/system32/cmd.exe
+
 for i in $(find ./285R-TowerTakeover/src/ -iname "*.cpp"); do clang-format -i -style=google $i || true
 done
 
