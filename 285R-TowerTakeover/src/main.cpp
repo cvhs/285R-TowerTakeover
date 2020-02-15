@@ -1,36 +1,29 @@
-#include "devices/devices.hpp"
 #include "comp/comp.hpp"
-
+#include "devices/devices.hpp"
 
 void initialize() {
-	generatePaths();
-	
-	pros::Task trayTask(trayTaskFn);
-	pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
+  generatePaths();
+
+  pros::Task trayTask(trayTaskFn);
+  pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
 }
 
 void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous()
-{
-	runAuton();
-}
+void autonomous() { runAuton(); }
 
-void opcontrol()
-{
-	while(1)
-	{		
-		driveToggle();
+void opcontrol() {
+  while (1) {
+    driveToggle();
 
-		trayControl();
-		liftControl();
-		rollerControl();
+    trayControl();
+    liftControl();
+    rollerControl();
 
-		rollerBrakeManagement();
+    rollerBrakeManagement();
 
-		pros::delay(20);
-	}
-
+    pros::delay(20);
+  }
 }

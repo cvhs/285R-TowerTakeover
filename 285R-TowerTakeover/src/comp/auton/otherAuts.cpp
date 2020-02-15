@@ -1,6 +1,7 @@
-#include "devices/devices.hpp"
 #include "otherAuts.hpp"
+
 #include "autonUtils.hpp"
+#include "devices/devices.hpp"
 
 void oneCube() {
   deploy();
