@@ -12,14 +12,7 @@ void tenCubes() {
 
   rollers.moveVelocity(200);
   profiler->setTarget("Ten Cubes");
-  trayController.state = TrayStates::slightlyUp;
-  while (!trayController.settled) {
-    pros::delay(10);
-  }
-  trayController.state = TrayStates::down;
-  while (!trayController.settled) {
-    pros::delay(10);
-  }
+  deployAntitips();
   profiler->waitUntilSettled();
   pros::delay(2000);
   rollers.moveVelocity(0);

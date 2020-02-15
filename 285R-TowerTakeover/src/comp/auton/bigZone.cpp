@@ -9,7 +9,9 @@ void redBig3Cube() {
   autChassis->moveDistance(1.9_ft);
   autChassis->turnAngle(-100_deg);
   autChassis->setMaxVelocity(120);
-  autChassis->moveDistance(2.8_ft);
+  autChassis->moveDistanceAsync(2.8_ft);
+  deployAntitips();
+  autChassis->waitUntilSettled();
   autChassis->setMaxVelocity(80);
   pros::delay(200);
   autChassis->setMaxVelocity(120);

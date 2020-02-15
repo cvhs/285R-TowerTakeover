@@ -10,6 +10,7 @@ void redSmall5Cube() {
   // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
   profiler->setTarget("dx=4 dy=0");
+  deployAntitips();
   profiler->waitUntilSettled();
 
   // Stop rollers and move back
@@ -33,6 +34,7 @@ void blueSmall5Cube() {
   // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
   profiler->setTarget("dx=4 dy=0");
+  deployAntitips();
   profiler->waitUntilSettled();
 
   // Stop rollers and move back

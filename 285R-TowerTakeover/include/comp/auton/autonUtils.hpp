@@ -4,6 +4,7 @@ extern void stack();
 extern void outtakeToStack();
 extern void imuTurn(double degrees);
 extern void deploy();
+extern void deployAntitips();
 
 bool pathsLoaded();
 extern void generatePaths();

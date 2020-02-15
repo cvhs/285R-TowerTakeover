@@ -155,6 +155,20 @@ void deploy() {
   }
 }
 
+void deployAntitips() {
+  trayController.state = TrayStates::slightlyUp;
+  trayIsUp = true;
+  while (!trayController.settled) {
+    pros::delay(10);
+  }
+
+  trayController.state = TrayStates::down;
+  while (!trayController.settled) {
+    pros::delay(10);
+  }
+  trayIsUp = false;
+}
+
 int autonSelected = 2;
 
 void autonSelectorFn() {
