@@ -3,6 +3,7 @@
 #include "bigZone.hpp"
 #include "devices/devices.hpp"
 #include "otherAuts.hpp"
+#include "skills.hpp"
 #include "smallZone.hpp"
 
 bool pathLoaded(std::string pathID) {
@@ -191,6 +192,10 @@ void autonSelectorFn() {
         pros::lcd::print(7, "BLUE BIG 3 Cube");
         break;
 
+      case 6:
+        pros::lcd::print(7, "Skills");
+        break;
+
       default:
         pros::lcd::print(7, "INVALID AUTON");
         break;
@@ -223,6 +228,9 @@ void runAuton() {
     case 5:
       blueBig3Cube();
       break;
+
+    case 6:
+      tenCubes();
 
     default:
       break;

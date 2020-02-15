@@ -27,7 +27,7 @@ void TrayController::lower(double level) {
     double error = level - trayMotor->getPosition();
     // std::cout << error << "\n";
     trayMotor->moveVelocity(kPDown * (error));
-    
+
     if (std::abs(error) < settleLimit) settled = true;
   }
 }
