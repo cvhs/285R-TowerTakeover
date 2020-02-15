@@ -25,6 +25,16 @@ void trayControl() {
       trayController.state = TrayStates::up;
       trayIsUp = true;
     }
+  } else if (antitipDeployButton.changedToPressed()) {
+    if (trayIsUp) {
+      std::cout << "Lowering tray \n";
+      trayController.state = TrayStates::down;
+      trayIsUp = false;
+    } else {
+      std::cout << "Raising tray to deploy antitips \n";
+      trayController.state = TrayStates::slightlyUp;
+      trayIsUp = true;
+    }
   }
 }
 
