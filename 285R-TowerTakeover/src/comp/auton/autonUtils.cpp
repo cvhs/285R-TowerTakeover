@@ -23,11 +23,8 @@ void generatePaths() {
   // SD card
   if (!pathLoaded("dx=4 dy=0")) {
     // 4 feet (for 3 cube row or 4 cube row)
-    profiler->generatePath(
-      {{0_ft, 0_ft, 0_deg},
-      {8_ft, 0_ft, 0_deg}},
-      "dx=4 dy=0"
-    );
+    profiler->generatePath({{0_ft, 0_ft, 0_deg}, {8_ft, 0_ft, 0_deg}},
+                           "dx=4 dy=0");
     profiler->storePath("/usd/paths/", "dx=4 dy=0");
   }
 
@@ -90,12 +87,12 @@ void imuTurn(double degrees) {
 
   double delta = std::abs(final - initial);
 
-  if(delta > 180) {
-    if(final > 180) {
+  if (delta > 180) {
+    if (final > 180) {
       target = final - 360;
     }
 
-    if(initial > 180) {
+    if (initial > 180) {
       sensorVal = initial - 360;
     }
   }
@@ -105,15 +102,14 @@ void imuTurn(double degrees) {
 
   bool settled = false;
   std::cout << "Target: " << target << std::endl;
-  while(!settled) {
+  while (!settled) {
     sensorVal = imu.get_heading();
 
-    if(delta > 180) {
-      if(sensorVal > 180) {
+    if (delta > 180) {
+      if (sensorVal > 180) {
         sensorVal -= 360;
       }
     }
-
 
     error = target - sensorVal;
     double dError = error - lastError;
@@ -129,7 +125,7 @@ void imuTurn(double degrees) {
     model->rotate(-output);
 
     lastError = error;
-    
+
     settled = std::abs(error) < 1 && std::abs(dError) < 0.3;
 
     pros::delay(20);
