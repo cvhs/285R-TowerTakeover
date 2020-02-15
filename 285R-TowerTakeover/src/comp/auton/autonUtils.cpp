@@ -61,8 +61,6 @@ void generatePaths() {
 }
 
 void stack() {
-  // Push bottom cube low enough that it touches ground
-  // outtakeToStack();
   rollers.moveRelative(-300, 60);
   trayController.state = TrayStates::up;
   while(!trayController.settled) {
@@ -107,7 +105,6 @@ void rotateIMU(double angle) {
 }
 
 void deploy() {
-  // TODO: actually figure this out
   lift.moveAbsolute(420, 100);
   rollers.moveVelocity(-100);
   while(lift.getPosition() < 370) {
@@ -125,9 +122,6 @@ void deploy() {
   while(pot.get() < 3400) {
     pros::delay(10);
   }
-
-  // rollers.moveVelocity(200);
-  // pros::delay
 }
 
 int autonSelected = 4;

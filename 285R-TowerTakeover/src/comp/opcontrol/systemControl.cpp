@@ -15,12 +15,6 @@ void driveToggle() {
 }
 
 void trayControl() {
-  // std::cout << "trayIsUp: " << trayIsUp << "\n";
-  // if(trayKillButton.isPressed()) {
-  //   trayController.state = TrayStates::off;
-    
-  //   trayIsUp = false;
-  // } else 
   if(trayButton.changedToPressed()) {
     if(trayIsUp) {
       std::cout << "Lowering tray \n";
@@ -74,6 +68,8 @@ void trayTaskFn() {
 }
 
 void liftControl() {
+  lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+
   if(liftUpButton.isPressed()) {
     lift.moveVelocity(150);
   }
