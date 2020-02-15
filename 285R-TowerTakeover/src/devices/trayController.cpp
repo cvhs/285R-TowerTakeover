@@ -27,15 +27,9 @@ void TrayController::lower(double level) {
     double error = level - trayMotor->getPosition();
     // std::cout << error << "\n";
     trayMotor->moveVelocity(kPDown * (error));
-
-<<<<<<< HEAD
+    
     if (std::abs(error) < settleLimit) settled = true;
   }
-
-  settled = true;
-  == == == = if (std::abs(error) < settleLimit) settled = true;
-}
->>>>>>> 9d4b3e4104f426fa876dfdcb89ba36149f998614
 }
 
 bool TrayController::coastRollers() {
