@@ -3,25 +3,25 @@
 
 extern bool trayIsUp;
 
-enum class TrayStates {up, down, slightlyUp, holding, off};
+enum class TrayStates { up, down, slightlyUp, holding, off };
 
 class TrayController {
-    public:
-    static constexpr double stackLevel = 930;
-    const double coastLevel = 200;
-    const double kPUp = 0.22;
-    const double kPDown = 0.4;
-    const double settleLimit = 8;
+ public:
+  static constexpr double stackLevel = 930;
+  const double coastLevel = 200;
+  const double kPUp = 0.22;
+  const double kPDown = 0.4;
+  const double settleLimit = 8;
 
-    TrayStates state;
-    double error;
-    bool settled;
-    std::shared_ptr<okapi::Motor> trayMotor;
+  TrayStates state;
+  double error;
+  bool settled;
+  std::shared_ptr<okapi::Motor> trayMotor;
 
-    TrayController(std::shared_ptr<okapi::Motor> imotor);
-    void raise(double level = stackLevel);
-    void lower(double level = 0);
-    bool coastRollers();
-    TrayStates getState();
-    void setState(TrayStates newState);
+  TrayController(std::shared_ptr<okapi::Motor> imotor);
+  void raise(double level = stackLevel);
+  void lower(double level = 0);
+  bool coastRollers();
+  TrayStates getState();
+  void setState(TrayStates newState);
 };

@@ -1,51 +1,29 @@
-#include "devices/devices.hpp"
 #include "comp/comp.hpp"
-
+#include "devices/devices.hpp"
 
 void initialize() {
-	lineSensor.calibrate();
-	// imu.reset();
-	generatePaths();
-	// while(imu.is_calibrating()) {
-	// 	pros::delay(10);
-	// }
-	
-	pros::Task trayTask(trayTaskFn);
-	pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
+  generatePaths();
+
+  pros::Task trayTask(trayTaskFn);
+  pros::Task autonSelectorTask(autonSelectorFn, "autonSelector");
 }
 
 void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous()
-{
-	// imuTurn(90);
-	tenCubes();
-	// runAuton();
-	// trayController.state = TrayStates::slightlyUp;
-	// trayIsUp = true;
-	// pros::delay(1000);
-	// trayController.state = TrayStates::down;
-}
+void autonomous() { runAuton(); }
 
-void opcontrol()
-{
-	while(1)
-	{
-		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+void opcontrol() {
+  while (1) {
+    driveToggle();
 
-		// chassisWidthTest(5);
-		
-		driveToggle();
+    trayControl();
+    liftControl();
+    rollerControl();
 
-		trayControl();
-		liftControl();
-		rollerControl();
+    rollerBrakeManagement();
 
-		rollerBrakeManagement();
-
-		pros::delay(20);
-	}
-
+    pros::delay(20);
+  }
 }

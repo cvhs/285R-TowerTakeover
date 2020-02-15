@@ -1,6 +1,7 @@
 #pragma once
 
 #include "auton/autonUtils.hpp"
+#include "auton/bigZone.hpp"
 #include "auton/otherAuts.hpp"
 #include "auton/smallZone.hpp"
 #include "auton/bigZone.hpp"

@@ -1,6 +1,7 @@
-#include "devices/devices.hpp"
 #include "smallZone.hpp"
+
 #include "autonUtils.hpp"
+#include "devices/devices.hpp"
 
 void redSmall5Cube() {
   // Deploy tray and intake
