@@ -18,6 +18,8 @@ void TrayController::raise(double level) {
 
         settled = (current > level - 100) && (trayMotor->getActualVelocity() < 5);
     }
+    
+    settled = true;
 }
 
 void TrayController::lower(double level) {
@@ -30,6 +32,8 @@ void TrayController::lower(double level) {
 
         if(std::abs(error) < settleLimit) settled = true;
     }
+
+    settled = true;
 }
 
 bool TrayController::coastRollers() {

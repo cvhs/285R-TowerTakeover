@@ -21,7 +21,8 @@ void competition_initialize() {}
 void autonomous()
 {
 	// imuTurn(90);
-	runAuton();
+	tenCubes();
+	// runAuton();
 	// trayController.state = TrayStates::slightlyUp;
 	// trayIsUp = true;
 	// pros::delay(1000);
