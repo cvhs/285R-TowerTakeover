@@ -6,7 +6,7 @@ okapi::ControllerButton antitipDeployButton = okapi::ControllerDigital::X;
 okapi::ControllerButton outtakeButton = okapi::ControllerDigital::R1;
 okapi::ControllerButton liftUpButton = okapi::ControllerDigital::L1;
 okapi::ControllerButton liftDownButton = okapi::ControllerDigital::L2;
-okapi::ControllerButton driverDan = okapi::ControllerDigital::B;
+okapi::ControllerButton driveToggleButton = okapi::ControllerDigital::B;
 
 const int rightRollerPort = -5;
 const int leftRollerPort = 8;
@@ -63,4 +63,4 @@ pros::Imu imu = pros::Imu(imuPort);
 pros::ADIDigitalIn leftSwitch = pros::ADIDigitalIn('B');
 pros::ADIDigitalIn rightSwitch = pros::ADIDigitalIn('F');
 
-bool danIsDriving = false;
+bool isArcadeDrive = false;

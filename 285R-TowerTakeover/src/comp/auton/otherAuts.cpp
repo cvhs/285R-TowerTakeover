@@ -5,6 +5,8 @@
 
 void oneCube() {
   deploy();
+  pros::delay(200);
+  deployAntitips();
   autChassis->moveDistance(-1.5_ft);
   pros::delay(800);
   autChassis->moveDistance(1.5_ft);

@@ -13,12 +13,12 @@ extern std::shared_ptr<okapi::Motor> tray;
 extern TrayController trayController;
 
 extern okapi::ControllerButton trayButton;
-extern okapi::ControllerButton trayKillButton;
+extern okapi::ControllerButton antitipDeployButton;
 extern okapi::ControllerButton intakeButton;
 extern okapi::ControllerButton outtakeButton;
 extern okapi::ControllerButton liftUpButton;
 extern okapi::ControllerButton liftDownButton;
-extern okapi::ControllerButton driverDan;
+extern okapi::ControllerButton driveToggleButton;
 
 extern okapi::Controller controller;
 
@@ -28,4 +28,4 @@ extern pros::Imu imu;
 extern pros::ADIDigitalIn leftSwitch;
 extern pros::ADIDigitalIn rightSwitch;
 
-extern bool danIsDriving;
+extern bool isArcadeDrive;
