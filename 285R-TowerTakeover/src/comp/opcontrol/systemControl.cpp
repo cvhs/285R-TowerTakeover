@@ -4,9 +4,9 @@
 #include "devices/trayController.hpp"
 
 void driveToggle() {
-  if (driverDan.changedToPressed()) danIsDriving = !danIsDriving;
+  if (driveToggleButton.changedToPressed()) isArcadeDrive = !isArcadeDrive;
 
-  if (danIsDriving == true)
+  if (isArcadeDrive)
     model->arcade(controller.getAnalog(okapi::ControllerAnalog::leftY),
                   -controller.getAnalog(okapi::ControllerAnalog::rightX));
   else

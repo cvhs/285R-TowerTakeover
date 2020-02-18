@@ -20,7 +20,6 @@ void redSmall5Cube() {
   profiler->waitUntilSettled();
 
   // Turn to goal zone and approach
-  // autChassis->setState({0_ft, 0_ft, 0_deg});
   autChassis->turnAngle(-135_deg);
   model->forward(100);
   pros::delay(1000);
