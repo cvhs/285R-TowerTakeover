@@ -56,9 +56,7 @@ void stack() {
   // outtakeToStack();
   rollers.moveRelative(-650, 60);
   trayController.state = TrayStates::up;
-  while (!trayController.settled) {
-    pros::delay(10);
-  }
+  pros::delay(2000);
   rollers.moveVelocity(-60);
   pros::delay(400);
   trayController.state = TrayStates::down;
@@ -137,7 +135,6 @@ void imuTurn(double degrees) {
 
 void deploy() {
   lift.moveAbsolute(420, 100);
-  rollers.moveVelocity(-100);
   while (lift.getPosition() < 370) {
     pros::delay(10);
   }
@@ -148,7 +145,6 @@ void deploy() {
     }
     lift.moveVelocity(0);
   });
-  rollers.moveVelocity(0);
 
   while (pot.get() < 3400) {
     pros::delay(10);
@@ -177,7 +173,7 @@ void autonSelectorFn() {
   while (true) {
     if (leftSwitch.get_new_press() && autonSelected > 0) {
       autonSelected--;
-    } else if (rightSwitch.get_new_press() && autonSelected < 3) {
+    } else if (rightSwitch.get_new_press() && autonSelected < 6) {
       autonSelected++;
     }
 

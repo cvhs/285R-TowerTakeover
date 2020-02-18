@@ -22,7 +22,9 @@ void redSmall5Cube() {
   // Turn to goal zone and approach
   // autChassis->setState({0_ft, 0_ft, 0_deg});
   autChassis->turnAngle(-135_deg);
-  autChassis->moveDistance(1.5_ft);
+  model->forward(100);
+  pros::delay(1000);
+  model->forward(0);
 
   stack();
 }

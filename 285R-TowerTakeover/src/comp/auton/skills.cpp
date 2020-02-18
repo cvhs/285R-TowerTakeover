@@ -34,3 +34,26 @@ void stackLots() {
   autChassis->moveDistance(-1_ft);
   rollers.moveVelocity(0);
 }
+
+void towerLow() {
+  lift.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+  while (pot.get() > 2700) {
+    lift.moveVelocity(60);
+    pros::delay(10);
+  }
+  lift.moveVelocity(0);
+  autChassis->setMaxVelocity(60);
+  autChassis->moveDistance(0.4_ft);
+  rollers.moveRelative(-1200, 150);
+  while (!rollers.isStopped()) {
+    lift.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+    lift.moveVelocity(0);
+    pros::delay(10);
+  }
+  autChassis->moveDistance(-0.4_ft);
+  while (pot.get() < 3400) {
+    lift.moveVelocity(-40);
+    pros::delay(10);
+  }
+  lift.moveVoltage(0);
+}
