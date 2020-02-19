@@ -24,7 +24,7 @@ void generatePaths() {
   // SD card
   if (!pathLoaded("dx=4 dy=0")) {
     // 4 feet (for 3 cube row or 4 cube row)
-    profiler->generatePath({{0_ft, 0_ft, 0_deg}, {8_ft, 0_ft, 0_deg}},
+    profiler->generatePath({{0_ft, 0_ft, 0_deg}, {9_ft, 0_ft, 0_deg}},
                            "dx=4 dy=0");
     profiler->storePath("/usd/paths/", "dx=4 dy=0");
   }

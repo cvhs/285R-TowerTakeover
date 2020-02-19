@@ -12,7 +12,7 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() { towerLow(); }
+void autonomous() { redBig3Cube(); }
 
 void opcontrol() {
   while (1) {

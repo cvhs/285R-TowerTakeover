@@ -54,7 +54,7 @@ std::shared_ptr<okapi::ChassisModel> model =
 std::shared_ptr<okapi::AsyncMotionProfileController> profiler =
     okapi::AsyncMotionProfileControllerBuilder()
         .withOutput(autChassis)
-        .withLimits({1.0, 2.0, 10.0})  // TODO: tune these
+        .withLimits({1.5, 2.0, 10.0})  // TODO: tune these
         .buildMotionProfileController();
 
 pros::ADILineSensor lineSensor = pros::ADILineSensor('C');
