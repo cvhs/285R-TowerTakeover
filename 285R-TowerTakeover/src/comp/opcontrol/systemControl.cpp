@@ -16,22 +16,29 @@ void driveToggle() {
 
 void trayControl() {
   if (trayButton.changedToPressed()) {
-    if (trayIsUp) {
+    if (trayIsMoving) {
+      trayController.cancelled = true;
+      trayIsMoving = false;
+    } else if (trayIsUp && !trayIsMoving) {
       std::cout << "Lowering tray \n";
+      trayIsMoving = true;
       trayController.state = TrayStates::down;
       trayIsUp = false;
-    } else {
+    } else if (!trayIsUp && !trayIsMoving) {
       std::cout << "Raising tray \n";
+      trayIsMoving = true;
       trayController.state = TrayStates::up;
       trayIsUp = true;
     }
   } else if (antitipDeployButton.changedToPressed()) {
     if (trayIsUp) {
       std::cout << "Lowering tray \n";
+      trayIsMoving = true;
       trayController.state = TrayStates::down;
       trayIsUp = false;
     } else {
       std::cout << "Raising tray to deploy antitips \n";
+      trayIsMoving = true;
       trayController.state = TrayStates::slightlyUp;
       trayIsUp = true;
     }
@@ -59,6 +66,7 @@ void trayTaskFn() {
         break;
 
       case TrayStates::holding:
+        trayIsMoving = false;
         trayController.trayMotor->setBrakeMode(
             okapi::AbstractMotor::brakeMode::hold);
         trayController.trayMotor->moveVelocity(0);

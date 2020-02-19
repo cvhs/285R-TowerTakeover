@@ -2,6 +2,7 @@
 #include "main.h"
 
 extern bool trayIsUp;
+extern bool trayIsMoving;
 
 enum class TrayStates { up, down, slightlyUp, holding, off };
 
@@ -9,13 +10,14 @@ class TrayController {
  public:
   static constexpr double stackLevel = 930;
   const double coastLevel = 200;
-  const double kPUp = 0.22;
+  const double kPUp = 0.21;
   const double kPDown = 0.4;
   const double settleLimit = 8;
 
   TrayStates state;
   double error;
   bool settled;
+  bool cancelled;
   std::shared_ptr<okapi::Motor> trayMotor;
 
   TrayController(std::shared_ptr<okapi::Motor> imotor);
