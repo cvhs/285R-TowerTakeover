@@ -3,11 +3,14 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
-trigger:
-- master
+resources:
+  containers:
+  - container: lib7842image
+    image: 'theol0403/lib7842-image:latest'
 
 pool:
   vmImage: 'ubuntu-latest'
+container: lib7842image
 
 steps:
 - script: |
