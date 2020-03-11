@@ -1,6 +1,7 @@
-#include "devices/devices.hpp"
 #include "smallZone.hpp"
+
 #include "autonUtils.hpp"
+#include "devices/devices.hpp"
 
 void redSmall5Cube() {
   // Deploy tray and intake
@@ -9,18 +10,34 @@ void redSmall5Cube() {
   // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
   profiler->setTarget("dx=4 dy=0");
+  deployAntitips();
   profiler->waitUntilSettled();
 
-  // Stop rollers and move back
-  profiler->setTarget("dx=2.5 dy=0", true);
-  pros::delay(1000);
+  // Turn and grab 6th cube
+  autChassis->turnAngle(27_deg);
+  autChassis->moveDistance(0.85_ft);
+  pros::delay(100);
+  // autChassis->moveDistance(-1_ft);
+  autChassis->setMaxVelocity(70);
+  autChassis->turnToAngle(228_deg);
+  autChassis->setMaxVelocity(150);
+  model->forward(150);
+  pros::delay(500);
   rollers.moveVelocity(0);
-  profiler->waitUntilSettled();
+  pros::delay(700);
+  model->forward(0);
 
-  // Turn to goal zone and approach
-  // autChassis->setState({0_ft, 0_ft, 0_deg});
-  autChassis->turnAngle(-135_deg);
-  autChassis->moveDistance(1_ft);
+  // // Stop rollers and move back
+  // profiler->setTarget("dx=2.5 dy=0", true);
+  // pros::delay(1000);
+  // rollers.moveVelocity(0);
+  // profiler->waitUntilSettled();
+
+  // // Turn to goal zone and approach
+  // autChassis->turnAngle(-135_deg);
+  // model->forward(100);
+  // pros::delay(1000);
+  // model->forward(0);
 
   stack();
 }
@@ -28,23 +45,34 @@ void redSmall5Cube() {
 void blueSmall5Cube() {
   // Deploy tray and intake
   deploy();
+  model->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
 
   // Start rollers and intake the 4 cubes
   rollers.moveVelocity(200);
   profiler->setTarget("dx=4 dy=0");
+  deployAntitips();
   profiler->waitUntilSettled();
 
-  // Stop rollers and move back
-  profiler->setTarget("dx=2.5 dy=0", true);
-  pros::delay(1000);
+  // Turn and grab 6th cube
+  autChassis->turnAngle(-30_deg);
+  autChassis->moveDistance(0.85_ft);
+  pros::delay(100);
+  // autChassis->moveDistance(-1_ft);
+  autChassis->turnToAngle(-236_deg);
+  autChassis->setMaxVelocity(150);
+  model->forward(150);
+  pros::delay(500);
   rollers.moveVelocity(0);
-  // outtakeToStack();
-  profiler->waitUntilSettled();
+  pros::delay(700);
+  model->forward(0);
 
-  // Turn to goal zone and approach
-  autChassis->setState({0_ft, 0_ft, 0_deg});
-  autChassis->turnToAngle(125_deg);
-  autChassis->moveDistance(1_ft);
+  // // Stop rollers and move back
+  // profiler->setTarget("dx=2.5 dy=0", true);
+  // pros::delay(1000);
+  // rollers.moveVelocity(0);
+  // profiler->waitUntilSettled();
+
+  // // Turn to goal zone and approach
   // autChassis->turnAngle(135_deg);
   // autChassis->moveDistance(1_ft);
 
